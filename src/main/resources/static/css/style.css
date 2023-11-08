@@ -1,0 +1,467 @@
+@import url("https://fonts.googleapis.com/css2?family=poppins:wght@400;600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(0, 0, 50, 0.8), rgba(0, 0, 50, 0.8)),
+    url(img1.jpeg);
+
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+.form-box {
+  width: 90%;
+  max-width: 450px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: #133eb4 solid 3px;
+  backdrop-filter: blur(15px);
+  padding: 50px 50px 70px;
+  text-align: center;
+  border-radius: 10px;
+  color: #fff;
+}
+.form-box h1 {
+  font-size: 30px;
+  margin-bottom: 60px;
+  color: #cfe0d9;
+  position: relative;
+}
+.form-box h1::after {
+  content: "";
+  width: 30px;
+  height: 4px;
+  border-radius: 3px;
+  background: #3c00a0;
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.input-field {
+  background: #eaeaea;
+  margin: 15px 0;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  max-height: 65px;
+  transition: max-height 0.5s;
+  overflow: hidden;
+}
+input {
+  width: 250px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 18px 5px;
+}
+.input-field i {
+  margin-left: 15px;
+  color: #999;
+}
+form p {
+  text-align: left;
+  font-size: 13px;
+  margin-left: 10px;
+  margin-top: 40px;
+}
+form p a {
+  text-decoration: none;
+  color: #cac1da;
+}
+.btn-field {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.btn-field button {
+  flex-basis: 38%;
+  background: #3c00a0;
+
+  color: #fff;
+  height: 40px;
+  border-radius: 20px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: calc(1s);
+}
+.input-group {
+  height: 280px;
+}
+.btn-field button.disable {
+  background: #eaeaea;
+  color: #555;
+}
+
+#loginBtn {
+  flex-basis: 48%;
+  background: #3c00a0;
+  color: #fff;
+  height: 40px;
+  width: 70px;
+  border-radius: 20px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: calc(1s);
+  padding: 5px;
+  font-size: 12px;
+}
+.login {
+  padding: 25px 0;
+  margin-top: 10px;
+}
+
+/* Dasboard--------------------------------------------------------
+------------------------------------------------------------
+------------------------------------------ */
+#body-two {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  font-family: poppins, sans-serif;
+  box-sizing: border-box;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 110px;
+  padding: 0 1.7rem;
+  color: #fff;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  background: rgba(113, 99, 186, 255);
+  height:700px !important;
+}
+.sidebar:hover {
+  width: 250px;
+  transition: 0.5s;
+}
+
+.logo {
+  height: 80px;
+  padding: 16px;
+}
+
+.menu li {
+  padding: 1rem;
+  margin: 7px 0;
+  border-radius: 8px;
+  transition: all 0.5s ease-in-out;
+}
+.menu li:hover,
+.active {
+  background: #e0e0e058;
+}
+.menu a {
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+  gap: 1rem;
+}
+.menu a span {
+  overflow: hidden;
+}
+.menu a i {
+  font-size: 1.2rem;
+}
+.logout {
+  left: 0;
+  width: 100%;
+  margin-top: 100px !important;
+
+}
+.menu {
+  height: 90%;
+  position: relative;
+  list-style: none;
+  padding: 0;
+}
+.main--content {
+  position: relative;
+  background: #ebe9e9;
+  width: 100%;
+  padding: 1rem;
+  height: 100%;
+}
+.header--wrapper img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.header--wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 2rem;
+  margin-bottom: 1rem;
+}
+.header--title {
+  color: rgba(113, 99, 186, 255);
+}
+.user--info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.search--box {
+  background: rgba(237, 237, 237);
+  border-radius: 15px;
+  color: rgba(113, 90, 186, 255);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+}
+.search--box input {
+  background: transparent;
+  padding: 10px;
+}
+.search--box i {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+.search--box i:hover {
+  transform: scale(1.2);
+}
+/* card container */
+.card--container {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.card--wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.main--title {
+  color: rgba(113, 99, 186, 255);
+  padding-bottom: 10px;
+  font-size: 15px;
+}
+.payment--card {
+  background: rgba(229, 223, 223);
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 250px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s ease-in-out;
+}
+.payment--card:hover {
+  transform: translateY(-5px);
+}
+.card--header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.amount {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 12px;
+  font-weight: 200;
+}
+.amount--value {
+  font-size: 24px;
+  font-family: "Courier New", "Courier New", Courier, monospace;
+}
+.icon {
+  color: #fff;
+  padding: 1rem;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: red;
+}
+.card--detail {
+  font-size: 18px;
+  color: #777777;
+  letter-spacing: 2px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.light-red {
+  background: rgba(251, 233, 233);
+}
+.light-purple {
+  background: rgba(254, 226, 254);
+}
+.light-green {
+  background: rgba(235, 254, 235);
+}
+.light-blue {
+  background: rgba(236, 236, 254);
+}
+.dark-red {
+  background: red;
+}
+.dark-purple {
+  background: purple;
+}
+.dark-green {
+  background: green;
+}
+.dark-blue {
+  background: blue;
+}
+
+/* tabular-wraper */
+
+.tabular--wrapper {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 100%;
+}
+.table--container {
+  width: 100%;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: rgba(113, 99, 186, 255);
+  color: #fff;
+}
+th {
+  padding: 15px;
+  text-align: left;
+}
+tbody {
+  background: #f2f2f2;
+}
+td {
+  padding: 15px;
+  font-size: 12px;
+}
+tr:nth-child(even) {
+  background: #fff;
+}
+
+tfoot {
+  background: rgba(113, 99, 186, 255);
+  font-weight: bold;
+  color: #fff;
+}
+tfoot td {
+  padding: 15px;
+  color: #fff;
+}
+.table--container button {
+  color: green;
+  background: none;
+  cursor: pointer;
+}
+
+/*form styles*/
+/* Apply styles to the form container */
+.form-one {
+  max-width: 419px;
+  margin: 0 60px 30px 6px;
+  padding: 24px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  /*height: 100px;*/
+}
+
+/* Apply styles to form labels */
+.form-one label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Apply styles to form input fields */
+.form-one input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Apply styles to the submit button */
+.form-one button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Style the submit button on hover */
+.form-one button:hover {
+  background-color: #0056b3;
+}
+
+
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+  margin-bottom: 10px;
+}
+
+.cell:before {
+  margin-bottom: 3px;
+  content: attr(data-title);
+  min-width: 98px;
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #969696;
+  display: block;
+}
+
+.main-display{
+  display: flex;
+  /*flex-direction: column;*/
+  gap: 30px;
+}
+.main-display .academic{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.last select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

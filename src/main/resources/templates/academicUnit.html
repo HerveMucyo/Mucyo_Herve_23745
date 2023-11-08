@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Unit</title>
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+  />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body id="body-two">
+<div class="sidebar">
+  <div class="logo">
+    <ul class="menu">
+      <li class="active">
+        <a href="ListsBySem.html">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Lists</span>
+        </a>
+      </li>
+      <li>
+        <a href="academicUnit.html">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Academic Unit</span>
+        </a>
+      </li>
+      <li>
+        <a href="semester.html">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>Semester</span>
+        </a>
+      </li>
+      <li>
+        <a href="teacher.html">
+          <i class="fa-solid fa-chalkboard-user"></i>
+          <span>Lecturers</span>
+        </a>
+      </li>
+      <li>
+        <a href="CourseDefinition.html">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Courses</span>
+        </a>
+      </li>
+      <li>
+        <a href="coursemgt.html">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Course Management</span>
+        </a>
+      </li>
+      <li>
+        <a href="student.html">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Students</span>
+        </a>
+      </li>
+      <li>
+        <a href="studentRegistration.html">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Student Registration</span>
+        </a>
+      </li>
+      <li>
+        <a href="studentCourse.html">
+          <i class="fa-solid fa-book-open-reader"></i>
+          <span>Student courses</span>
+        </a>
+      </li>
+
+
+      <li class="logout">
+        <a href="Login.html">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="main--content academic">
+  <div class="header--wrapper">
+    <div class="header--title">
+      <span>Academic Unit </span>
+      <h2>Dashboard</h2>
+    </div>
+
+    <div class="user--info">
+      <div class="search--box">
+        <i class="fa solid fa-search"></i>
+        <input type="text" placeholder="Search" />
+        <img src="../static/images/girl.jpg" alt="" />
+      </div>
+    </div>
+  </div>
+  <div class="main-display">
+    <div class="card--container" >
+      <div>
+        <h3 class="main--title">Insert / Modify Data</h3>
+      </div>
+      <div style="display: flex">
+      <div class="forms">
+        <h2 class="main--title">Add Program</h2>
+        <form th:action="@{/acadUnit/create}" th:object="${acadUnit}" method="post" class="form-one">
+          <div class="one">
+            <label>Program Name</label>
+            <input type="text" name="program1" id="program1" required/>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="forms">
+      <h2 class="main--title">Add Faculty</h2>
+      <form action=" method="post" class="form-one">
+        <small class="msg" style="color: darkred;"></small>
+        <small class="msg" style="color: green;"></small>
+        <div class="last">
+          <label for="programme1">Choose Program</label>
+          <select name="programme" id="programme1">
+            <option>select program</option>
+
+          <option value="<%=units.getName()%>"></option>
+
+          </select>
+          <label for="programme1">Faculty Name:</label>
+          <input type="text" name="fac"  required/>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      </div>
+      <div class="forms">
+      <h2 class="main--title">Add Department</h2>
+      <form action="" method="post" class="form-one">
+        <div class="last">
+          <label>Choose Program</label>
+          <select name="programme" id="programme2">
+            <option>Select Program</option>
+
+            <option value="<%=units.getName()%>"><%=units.getName()%></option>
+
+          </select>
+          <label>Choose Faculty</label>
+          <select name="faculty" id="department1">
+            <option>Select Faculty</option>
+
+               <option value="<%=units.getName()%>"><%=units.getName()%></option>
+
+          </select>
+          <div class="one">
+            <label>Department Name</label>
+            <input type="text" name="depart" id="faculty" />
+          </div>
+          <button type="submit">Submit</button>
+
+        </div>
+      </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="tabular--wrapper">
+    <h3 class="main--title">Academic Units data</h3>
+    <div class="table--container">
+      <table>
+        <thead>
+        <tr>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>CATEGORY</th>
+          <th>UNIT</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+
+          <td><%= units.getCode() %></td>
+          <td><%= units.getName() %></td>
+          <td><%= units.getUnit() %></td>
+
+          <td></td>
+
+          <td>--parent--</td>
+
+        </tr>
+
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="7">Total: Semesters</td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

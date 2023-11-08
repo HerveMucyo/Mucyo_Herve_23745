@@ -1,0 +1,230 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: blais
+  Date: 10/23/2023
+  Time: 8:54 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+
+<%@ page import="java.util.ArrayList" %>
+
+<%@ page import="com.auca__mis.model.*" %>
+<%@ page import="com.auca__mis.service.implementation.*" %>
+<%@ page import="com.auca__mis.service.*" %>
+<jsp:useBean id="courseDef" class="com.auca__mis.model.CourseDefinition" scope="request" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Dashboard</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+</head>
+<body id="body-two">
+<div class="sidebar">
+    <div class="logo">
+        <ul class="menu">
+            <li class="active">
+                <a href="ListsBySem.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Lists</span>
+                </a>
+            </li>
+            <li>
+                <a href="academicUnit.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Academic Unit</span>
+                </a>
+            </li>
+            <li>
+                <a href="semester.html">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Semester</span>
+                </a>
+            </li>
+            <li>
+                <a href="teacher.html">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Lecturers</span>
+                </a>
+            </li>
+            <li>
+                <a href="CourseDefinition.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li>
+                <a href="coursemgt.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Course Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="student.html">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentRegistration.jsp">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Student Registration</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentCourse.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Student courses</span>
+                </a>
+            </li>
+
+
+            <li class="logout">
+                <a href="Login.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main--content">
+    <div class="header--wrapper">
+        <div class="header--title">
+            <span>Student Registration</span>
+            <h2>Dashboard</h2>
+        </div>
+
+        <div class="user--info">
+            <div class="search--box">
+                <i class="fa solid fa-search"></i>
+                <input type="text" placeholder="Search" />
+                <img src="../static/images/girl.jpg" alt="" />
+            </div>
+        </div>
+    </div>
+    <div class="main-display">
+        <div class="card--container">
+            <h3 class="main--title">Insert / Modify Data</h3>
+
+            <form action="../services/addStudReg.jsp" method="post" class="form-one">
+
+                <div class="last">
+                    <label for="student">Student</label>
+                    <select name="regNo" id="student">
+                        <option>Select Student</option>
+                        <%
+                            List<Student> students = new ArrayList<>();
+                            StudentService service1 = new StudentServiceImpl();
+                            students = service1.studentList();
+
+                            for(Student student: students){
+                        %>
+                        <option value="<%=student.getRegNo()%>"><%=student.getRegNo() + " " + student.getFullNames()%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+
+                    <label for="unit">Select Academic Unit</label>
+                    <select name="unit" id="unit">
+                        <option>Select Unit</option>
+                        <%
+                            List<AcademicUnit> unitList = new ArrayList<>();
+                            AcademicUnitService service2 = new AcademicUnitImplementation();
+                            unitList = service2.unitList();
+
+                            for(AcademicUnit unit: unitList){
+                                if(unit.getUnit().name().equals("DEPARTMENT")){
+                        %>
+                        <option value="<%=unit.getName()%>"><%=unit.getName()%></option>
+                        <%
+                                }
+                            }
+                        %>
+                    </select>
+                    <label for="semester">Start Date</label>
+                    <select name="semester" id="semester">
+                        <option>Select Semester</option>
+                        <%
+                            List<Semester> semesters = new ArrayList<>();
+                            SemesterService service3 = new SemesterServiceImplementation();
+                            semesters = service3.findAllSemesters();
+
+                            for(Semester semester: semesters){
+                        %>
+                        <option value="<%=semester.getName()%>"><%=semester.getName()+" "+semester.getStartDate()%></option>
+                        <%
+                            }
+                        %>
+                    </select>
+
+                    <div class="last">
+                        <label>STATUS :</label>
+                        <label>
+                            <select name="status">
+                                <option>Select Status</option>
+                                <option value="PENDING">PENDING</option>
+                                <option value="ADMITTED">ADMITTED</option>
+                                <option value="REJECTED">REJECTED</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Student Registration Data</h3>
+            <div class="table--container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Student Code</th>
+                        <th>Semester </th>
+                        <th>Academic unit</th>
+                        <th>Date of Registration</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        List<StudentRegistration> regList=new ArrayList<>();
+                        StudRegService studentRegService =new StudRegServiceImplementation();
+                        regList=studentRegService.registrationList();
+
+                        for (StudentRegistration registration : regList) {
+                    %>
+                    <tr>
+                        <td><%= registration.getStudent().getRegNo() %></td>
+                        <td><%= registration.getSemester().getName() %></td>
+                        <td><%=registration.getUnit().getId().toString()%></td>
+                        <td><%= registration.getRegistrationDate()%></td>
+                    </tr>
+                    <%}%>
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">Total: <%= regList.size() %> Semesters</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

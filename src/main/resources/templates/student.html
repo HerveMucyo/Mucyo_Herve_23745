@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Definition Dashboard</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body id="body-two">
+<div class="sidebar">
+    <div class="logo">
+        <ul class="menu">
+            <li class="active">
+                <a th:href="ListsBySem.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Lists</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="academicUnit.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Academic Unit</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="semester.html">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Semester</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="teacher.html">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Lecturers</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="CourseDefinition.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="coursemgt.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Course Management</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="student.jsp">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="studentRegistration.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Student Registration</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="studentCourse.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Student courses</span>
+                </a>
+            </li>
+
+
+            <li class="logout">
+                <a th:href="Login.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main--content">
+    <div class="header--wrapper">
+        <div class="header--title">
+            <span>Students</span>
+            <h2>Dashboard</h2>
+        </div>
+
+        <div class="user--info">
+            <div class="search--box">
+                <i class="fa solid fa-search"></i>
+                <input type="text" placeholder="Search" />
+                <img src="/images/girl.jpg" alt="" />
+            </div>
+        </div>
+    </div>
+    <div class="main-display">
+        <div class="card--container">
+            <h3 class="main--title">Insert / Modify Data</h3>
+
+            <form th:action="@{/student/create}"  method="post" th:object="${student}" class="form-one" >
+                <div class="one">
+                    <label>Student Code</label>
+                    <input type="text" th:field="*{regNo}"  placeholder="Enter code"  required/>
+                </div>
+                <div class="one">
+                    <label>Student Names</label>
+                    <input type="text" th:field="*{fullNames}"   placeholder="Enter names" required />
+                </div>
+                <div class="one">
+                    <label>Date of Birth</label>
+                    <input type="date" th:field="*{dob}"  required />
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Students data</h3>
+            <div class="table--container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Student Code</th>
+                        <th>Full Names</th>
+                        <th>Date of Birth</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="stud: ${studentsList}">
+                        <td th:text="${stud.getRegNo()}"> </td>
+                        <td th:text="${stud.getFullNames()}"> </td>
+                        <td th:text="${stud.getDob()}"> </td>
+                        <td>
+                            <div class="cell" data-title="Action">
+                            <a th:href="@{'/student/update/'+${stud.getId()}}">Edit</a>
+                            <a th:href="@{'/student/delete/'+${stud.getId()}}">Delete</a>
+                        </div>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">Total:  Semesters</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

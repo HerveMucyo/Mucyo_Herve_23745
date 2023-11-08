@@ -1,0 +1,146 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: blais
+  Date: 10/24/2023
+  Time: 6:54 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page import="com.auca__mis.service.SemesterService" %>
+<%@ page import="com.auca__mis.service.implementation.SemesterServiceImplementation" %>
+<%@ page import="com.auca__mis.model.Semester" %>
+<%@ page import="com.auca__mis.model.StudentRegistration" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.auca__mis.service.StudRegService" %>
+<%@ page import="com.auca__mis.service.implementation.StudRegServiceImplementation" %>
+<%@ page import="com.auca__mis.service.AcademicUnitService" %>
+<%@ page import="com.auca__mis.service.implementation.AcademicUnitImplementation" %>
+<%@ page import="com.auca__mis.model.AcademicUnit" %>
+<jsp:useBean id="semBean" class="com.auca__mis.bean.SemesterBean" scope="request" />
+<jsp:useBean id="unitBean" class="com.auca__mis.bean.AcademicUnitBean" scope="request" />
+<%--
+  Created by IntelliJ IDEA.
+  User: neo
+  Date: 2023-10-24
+  Time: 08:21
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    String semName = request.getParameter("semName");
+    if(semName != null) {
+        SemesterService semesterService = new SemesterServiceImplementation();
+        Semester semester = semesterService.findSemesterByName(semName);
+        semBean.setId(semester.getId());
+        semBean.setName(semester.getName());
+    }
+
+    String department = request.getParameter("department");
+    if(department != null){
+        AcademicUnitService unitService = new AcademicUnitImplementation();
+        AcademicUnit academicUnit = unitService.findUnitByName(department);
+
+        if(academicUnit.getUnit().name().equals("DEPARTMENT")){
+            unitBean.setId(academicUnit.getId());
+            unitBean.setName(academicUnit.getName());
+        }
+    }
+%>
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/css/myStyles.css">
+</head>
+<body>
+
+<section>
+    <div class="data" id="fac-data">
+        <h3>Student per department and Semester</h3>
+        <form action="listBySemAndDep.jsp" method="post">
+            <div>
+                <label for="department">Choose Department</label>
+                <select name="department" id="department">
+                    <option value="select">Select department</option>
+                    <%
+                        AcademicUnitService unitService = new AcademicUnitImplementation();
+                        List<AcademicUnit> unitList = new ArrayList<>();
+                        unitList = unitService.unitList();
+
+                        for(AcademicUnit unit : unitList){
+                            if(unit.getUnit().name().equals("DEPARTMENT")){
+                    %>
+                    <option value="<%=unit.getName()%>"><%=unit.getName()%></option>
+                    <%
+                            }
+                        }
+                    %>
+                </select>
+            </div>
+            <div>
+                <label for="sem">Choose Semester</label>
+                <select name="semName" id="sem">
+                    <option value="select">Select Semester</option>
+                    <%
+                        SemesterService service = new SemesterServiceImplementation();
+                        List<Semester> semesters = new ArrayList<>();
+                        semesters = service.findAllSemesters();
+
+                        for(Semester sem : semesters){
+                    %>
+                    <option value="<%=sem.getName()%>"><%=sem.getName()%></option>
+                    <%
+                        }
+                    %>
+                </select>
+            </div>
+            <button type="submit">Find</button>
+        </form>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Reg No</th>
+                <th>Student Names</th>
+                <th>Semester</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                List<StudentRegistration> registrationList = new ArrayList<>();
+                StudRegService registrationService = new StudRegServiceImplementation();
+                registrationList = registrationService.getStudentBySemesterAndDepartment(semBean.getId(), unitBean.getId());
+
+                for(StudentRegistration reg : registrationList){
+            %>
+            <tr>
+                <td><%=reg.getId()%></td>
+                <td><%=reg.getStudent().getRegNo()%></td>
+                <td><%=reg.getStudent().getFullNames()%></td>
+                <td><%=reg.getSemester().getName()%></td>
+            </tr>
+            <%
+                }
+            %>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="data" id="dep-data" style="display: none">
+        <div class="hd">
+            <h3>Add Department</h3>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+
+<script defer>
+    const messages = document.querySelectorAll(".msg");
+    messages.forEach((small) => {
+        if(small.textContent.trim() === ''){
+            small.style.display = 'none';
+        }
+    });
+</script>

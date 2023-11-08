@@ -1,0 +1,214 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: blais
+  Date: 11/2/2023
+  Time: 2:35 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.auca__mis.service.AcademicUnitService" %>
+<%@ page import="com.auca__mis.service.implementation.AcademicUnitImplementation" %>
+<%@ page import="com.auca__mis.model.AcademicUnit" %>
+<%@ page import="com.auca__mis.service.SemesterService" %>
+<%@ page import="com.auca__mis.service.implementation.SemesterServiceImplementation" %>
+<%@ page import="com.auca__mis.model.Semester" %>
+<jsp:useBean id="semBean" class="com.auca__mis.bean.SemesterBean" scope="request" />
+<jsp:useBean id="unitBean" class="com.auca__mis.bean.AcademicUnitBean" scope="request" />
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String semName = request.getParameter("semName");
+    if(semName != null) {
+        SemesterService semesterService = new SemesterServiceImplementation();
+        Semester semester = semesterService.findSemesterByName(semName);
+        semBean.setId(semester.getId());
+        semBean.setName(semester.getName());
+    }
+
+    String department = request.getParameter("department");
+    if(department != null){
+        AcademicUnitService unitService = new AcademicUnitImplementation();
+        AcademicUnit academicUnit = unitService.findUnitByName("department");
+
+        if(academicUnit.getUnit().name().equals("DEPARTMENT")){
+            unitBean.setId(academicUnit.getId());
+            unitBean.setName(academicUnit.getName());
+        }
+    }
+%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.auca__mis.model.Student" %>
+<%@ page import="com.auca__mis.service.implementation.StudentServiceImpl" %>
+<%@ page import="com.auca__mis.service.StudentService" %>
+<%@ page import="com.auca__mis.model.StudentRegistration" %>
+<%@ page import="com.auca__mis.service.StudRegService" %>
+<%@ page import="com.auca__mis.service.implementation.StudRegServiceImplementation" %>
+<jsp:useBean id="studBean" class="com.auca__mis.bean.StudentBean" scope="request" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lists</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../static/css/style.css" />
+</head>
+<body id="body-two">
+<div class="sidebar">
+    <div class="logo">
+        <ul class="menu">
+            <li class="active">
+                <a href="ListsBySem.jsp">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Lists</span>
+                </a>
+            </li>
+            <li>
+                <a href="academicUnit.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Academic Unit</span>
+                </a>
+            </li>
+            <li>
+                <a href="semester.html">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>Semester</span>
+                </a>
+            </li>
+            <li>
+                <a href="teacher.html">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Lecturers</span>
+                </a>
+            </li>
+            <li>
+                <a href="CourseDefinition.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li>
+                <a href="coursemgt.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Course Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="student.html">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentRegistration.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Student Registration</span>
+                </a>
+            </li>
+            <li>
+                <a href="studentCourse.html">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>Student courses</span>
+                </a>
+            </li>
+
+
+            <li class="logout">
+                <a href="Login.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main--content">
+    <div class="header--wrapper">
+        <div class="header--title">
+            <span>Lists</span>
+            <h2>Dashboard</h2>
+        </div>
+
+        <div class="user--info">
+            <div class="search--box">
+                <i class="fa solid fa-search"></i>
+                <input type="text" placeholder="Search" />
+                <img src="../static/images/girl.jpg" alt="" />
+            </div>
+        </div>
+    </div>
+    <div class="main-display">
+        <div class="card--container" style="width: 80%">
+            <h3 class="main--title">Insert / Modify Data</h3>
+
+            <form action="../view/ListsBySem.html" method="post" class="form-one">
+                    <div class="last">
+                <label for="semester">Choose semester</label>
+                <select name="semName" id="semester">
+                    <option value="select">Select Semester</option>
+                    <%
+                       SemesterService service = new SemesterServiceImplementation();
+                        List<Semester>semesters=new ArrayList<>();
+                        semesters=service.findAllSemesters();
+                        for(Semester sem: semesters){
+                    %>
+                    <option value="<%=sem.getName()%>"><%=sem.getName()%></option>
+                    <%
+                        }
+                    %>
+                </select>
+                <button type="submit">Find</button>
+                    </div>
+            </form>
+        </div>
+        <div class="tabular--wrapper">
+            <h3 class="main--title">DATA</h3>
+            <div class="table--container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>UUID</th>
+                        <th>REG NO</th>
+                        <th>STUDENT NAMES</th>
+                        <th>SEMESTER</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%
+                        List<StudentRegistration> registrations = new ArrayList<>();
+                        StudRegService service1 = new StudRegServiceImplementation();
+
+                        System.out.println(semBean.getId());
+
+                        registrations = service1.getStudentBySemester(semBean.getId());
+                        for(StudentRegistration reg : registrations){
+                    %>
+                    <tr>
+                        <td><%= reg.getId() %></td>
+                        <td><%= reg.getStudent().getRegNo() %></td>
+                        <td><%= reg.getStudent().getFullNames() %></td>
+                        <td><%= reg.getSemester().getName() %></td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">Total: <%= registrations.size() %> Semesters</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

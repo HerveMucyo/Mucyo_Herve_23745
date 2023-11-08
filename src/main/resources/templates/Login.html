@@ -1,0 +1,66 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script
+      src="https://kit.fontawesome.com/73dce52d8a.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script defer src="../static/scripts/scripts.js"></script>
+  </head>
+  <body>
+  <form action="../services/authService.jsp" method="post" class="form"  >
+    <div class="container">
+      <div class="form-box">
+        <h1 id="title">Login</h1>
+          <div class="input-group">
+
+            <div class="input-field">
+              <i class="fa-solid fa-envelope"></i>
+              <input
+                type="email"
+                placeholder="Email"
+                id="mail"
+                name="email"
+                onkeyup="validateEmail()"
+              />
+              <span style="color: red" class="email-error"></span>
+            </div>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                placeholder="Password"
+                id="contact-password"
+                name="password"
+                onkeyup=""
+              />
+              <span style="color: red" class="password-error"></span>
+            </div>
+
+            <p>No Account ? <a href="signUp.html">Click Here!</a></p>
+            <div class="login">
+              <button type="submit" id="loginBtn" >
+                Login
+              </button>
+            </div>
+          </div>
+
+          <div class="btn-field">
+            <button type="button" id="signupBtnn" onclick="regForm()">
+              Create Account
+            </button>
+            <!-- <button type="button" id="signinBtn" class="disable">
+              Sign In
+            </button> -->
+          </div>
+      </div>
+    </div>
+  </form>
+  </body>
+</html>
