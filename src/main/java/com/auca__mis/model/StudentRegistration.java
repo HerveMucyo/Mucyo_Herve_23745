@@ -21,10 +21,13 @@ public class StudentRegistration {
     private UUID id;
     private LocalDate registrationDate;
     @ManyToOne
+    @JoinColumn(name = "STUDENT")
     private Student student;
     @ManyToOne
-    private AcademicUnit unit;
+    @JoinColumn(name = "UNIT")
+    private AcademicUnit academicUnit;
     @ManyToOne
+    @JoinColumn(name = "SEMESTER")
     private Semester semester;
     @Enumerated(EnumType.STRING)
     private ERegistrationStatus status;

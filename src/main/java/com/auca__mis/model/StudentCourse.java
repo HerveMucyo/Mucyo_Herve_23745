@@ -20,6 +20,7 @@ public class StudentCourse {
     private Integer credits;
     private BigDecimal results;
     @ManyToOne
+    @JoinColumn(name = "STUDENT_REGISTRATION")
     private StudentRegistration studentRegistration;
     @OneToOne
     private Course course;

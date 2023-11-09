@@ -24,4 +24,4 @@ public class Student {
     private LocalDate dob;
     @OneToMany(mappedBy = "student")
     private List<StudentRegistration> studentRegistrations;
-    }
+}

@@ -41,8 +41,8 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "teacher/delete/{id}", method = RequestMethod.DELETE)
-    public String deleteTeacher(@PathVariable UUID id) {
-       teacherService.deleteTeacherById(id);
+    public String deleteTeacher(@PathVariable Teacher teacher) {
+       teacherService.deleteTeacherById(teacher);
         return "redirect:/teacher";
     }
 

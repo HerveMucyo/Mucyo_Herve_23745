@@ -1,6 +1,6 @@
 package com.auca__mis;
 
-import com.auca__mis.dao.SemesterDao;
+import com.auca__mis.dao.ISemesterDao;
 import com.auca__mis.model.Semester;
 import com.auca__mis.service.SemesterService;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class AucaMisApplicationTests {
 	private SemesterService semesterService;
 
 	@Autowired
-	private SemesterDao semesterDao;
+	private ISemesterDao semesterDao;
 
 	@Test
 	public void testInsertSemester() {

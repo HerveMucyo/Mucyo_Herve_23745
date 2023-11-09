@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 @Repository
-public interface SemesterDao extends JpaRepository<Semester, UUID> {
+public interface ISemesterDao extends JpaRepository<Semester, UUID> {
 
 }

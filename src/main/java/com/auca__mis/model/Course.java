@@ -17,12 +17,15 @@ public class Course {
     @Id
     private UUID id;
     @ManyToOne
+    @JoinColumn(name = "SEMESTER")
     private Semester semester;
     @ManyToOne
+    @JoinColumn(name = "TEACHER")
     private Teacher teacher;
     @OneToOne
     private CourseDefinition courseDefinition;
     @ManyToOne
+    @JoinColumn(name = "ACADEMIC_UNIT")
     private AcademicUnit academicUnit;
 
 }

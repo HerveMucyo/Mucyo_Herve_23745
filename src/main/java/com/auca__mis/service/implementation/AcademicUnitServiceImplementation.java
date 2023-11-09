@@ -1,8 +1,7 @@
 package com.auca__mis.service.implementation;
 
 import com.auca__mis.controller.AcademicUnitController;
-import com.auca__mis.dao.AcademicUnitDao;
-import com.auca__mis.enums.EAcademicUnit;
+import com.auca__mis.dao.IAcademicUnitDao;
 import com.auca__mis.model.AcademicUnit;
 import com.auca__mis.service.AcademicUnitService;
 import jakarta.transaction.Transactional;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
 
 
@@ -23,7 +21,7 @@ import java.util.UUID;
 public class AcademicUnitServiceImplementation implements AcademicUnitService {
 
 
-    private AcademicUnitDao academicUnitDao;
+    private IAcademicUnitDao academicUnitDao;
 
 
     @Override
