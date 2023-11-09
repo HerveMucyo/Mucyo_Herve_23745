@@ -7,11 +7,11 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.auca__mis.service.AcademicUnitService" %>
+<%@ page import="com.auca__mis.service.IAcademicUnitService" %>
 <%@ page import="com.auca__mis.service.implementation.AcademicUnitImplementation" %>
 <%@ page import="com.auca__mis.model.AcademicUnit" %>
-<%@ page import="com.auca__mis.service.SemesterService" %>
-<%@ page import="com.auca__mis.service.implementation.SemesterServiceImplementation" %>
+<%@ page import="com.auca__mis.service.ISemesterService" %>
+<%@ page import="com.auca__mis.service.implementation.ISemesterServiceImplementation" %>
 <%@ page import="com.auca__mis.model.Semester" %>
 <jsp:useBean id="semBean" class="com.auca__mis.bean.SemesterBean" scope="request" />
 <jsp:useBean id="unitBean" class="com.auca__mis.bean.AcademicUnitBean" scope="request" />
@@ -19,8 +19,8 @@
 <%
     String semName = request.getParameter("semName");
     if(semName != null) {
-        SemesterService semesterService = new SemesterServiceImplementation();
-        Semester semester = semesterService.findSemesterByName(semName);
+        SemesterService ISemesterService = new SemesterServiceImplementation();
+        Semester semester = ISemesterService.findSemesterByName(semName);
         semBean.setId(semester.getId());
         semBean.setName(semester.getName());
     }
@@ -41,9 +41,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.auca__mis.model.Student" %>
 <%@ page import="com.auca__mis.service.implementation.StudentServiceImpl" %>
-<%@ page import="com.auca__mis.service.StudentService" %>
+<%@ page import="com.auca__mis.service.IStudentService" %>
 <%@ page import="com.auca__mis.model.StudentRegistration" %>
-<%@ page import="com.auca__mis.service.StudRegService" %>
+<%@ page import="com.auca__mis.service.IStudRegService" %>
 <%@ page import="com.auca__mis.service.implementation.StudRegServiceImplementation" %>
 <jsp:useBean id="studBean" class="com.auca__mis.bean.StudentBean" scope="request" />
 <html lang="en">

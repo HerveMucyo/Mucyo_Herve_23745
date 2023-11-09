@@ -2,7 +2,7 @@ package com.auca__mis.controller;
 
 
 import com.auca__mis.model.Student;
-import com.auca__mis.service.StudentService;
+import com.auca__mis.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,16 +13,16 @@ import java.util.UUID;
 
 @Controller
 public class StudentController {
-private final StudentService studentService;
+private final IStudentService IStudentService;
 @Autowired
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public StudentController(IStudentService IStudentService) {
+        this.IStudentService = IStudentService;
     }
 
     @GetMapping("/student")
     private String showStudentDashboard(Model model){
 
-    List<Student>studentList=studentService.getAllStudents();
+    List<Student>studentList= IStudentService.getAllStudents();
     model.addAttribute("student",new Student());
     model.addAttribute("studentsList",studentList);
 
@@ -32,19 +32,19 @@ private final StudentService studentService;
 
     @PostMapping("/student/create")
     public String createStudent(@ModelAttribute("student") Student student){
-    studentService.saveStudent(student);
+    IStudentService.saveStudent(student);
     return "redirect:/student";
     }
 
     @RequestMapping(value = "student/update", method = RequestMethod.POST)
     public String updateStudent(@ModelAttribute("student") Student student) {
-        studentService.updateStudent(student);
+        IStudentService.updateStudent(student);
         return "redirect:/student";
     }
 
     @RequestMapping(value = "student/delete/{id}", method = RequestMethod.GET)
-    public String deleteStudent(@PathVariable UUID id) {
-        studentService.deleteStudent(id);
+    public String deleteStudent(@PathVariable Student student) {
+        IStudentService.deleteStudent(student);
         return "redirect:/student";
     }
 

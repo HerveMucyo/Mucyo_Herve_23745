@@ -1,8 +1,7 @@
 package com.auca__mis.controller;
 
 import com.auca__mis.model.CourseDefinition;
-import com.auca__mis.model.Semester;
-import com.auca__mis.service.CourseDefinitionService;
+import com.auca__mis.service.ICourseDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,24 +12,24 @@ import java.util.UUID;
 
 @Controller
 public class CourseDefController {
-    private final CourseDefinitionService service;
+    private final ICourseDefinitionService service;
     @Autowired
-    public CourseDefController(CourseDefinitionService service) {
+    public CourseDefController(ICourseDefinitionService service) {
         this.service = service;
     }
 
-/*
+
     @GetMapping("/courseDef")
     public String showCourseDefDashboard(Model model) {
 
         List<CourseDefinition> courseDefinitionList = service.getAllCourseDefs();
-        model.addAttribute("courseDefs",new CourseDefinition());
+        model.addAttribute("courseDef",new CourseDefinition());
         model.addAttribute("courseDefinitionList", courseDefinitionList);
         return "CourseDefinition";
 
     }
     @PostMapping("/courseDef/create")
-    public String createCourseDef(@ModelAttribute("courseDefs") CourseDefinition courseDefinition) {
+    public String createCourseDef(@ModelAttribute("courseDef") CourseDefinition courseDefinition) {
         service.saveCourseDef(courseDefinition);
         return "redirect:/courseDef";
     }
@@ -52,6 +51,6 @@ public class CourseDefController {
         model.addAttribute("courseDefs", service.getCourseDefById(id));
         return "redirect:/CourseDefinition";
     }
-*/
+
 
 }

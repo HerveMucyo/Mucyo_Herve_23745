@@ -2,22 +2,19 @@ package com.auca__mis.service.implementation;
 
 import com.auca__mis.dao.TeacherDao;
 import com.auca__mis.model.Teacher;
-import com.auca__mis.service.TeacherService;
+import com.auca__mis.service.ITeacherService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional
 @AllArgsConstructor
 @Slf4j
-public class TeacherServiceImplementation implements TeacherService {
+public class ITeacherServiceImplementation implements ITeacherService {
     private TeacherDao teacherDao;
 
     @Override
@@ -27,9 +24,8 @@ public class TeacherServiceImplementation implements TeacherService {
 
     @Override
     public Teacher getTeacherById(Teacher teacher) {
-        Teacher viewTeacher = this.teacherDao.findById(teacher.getId())
+        return this.teacherDao.findById(teacher.getId())
                 .orElseThrow(() -> new RuntimeException("Teacher not found with code: " + teacher.getCode()));
-        return viewTeacher;
     }
 
     @Override
@@ -50,11 +46,11 @@ public class TeacherServiceImplementation implements TeacherService {
     public Teacher updateTeacher(Teacher teacher) {
         Teacher updatedTeacher = this.teacherDao.findById(teacher.getId())
                 .orElseThrow(() -> new RuntimeException("Teacher not found with code: " + teacher.getCode()));
+
         updatedTeacher.setCode(teacher.getCode());
         updatedTeacher.setName(teacher.getName());
         updatedTeacher.setQualification(teacher.getQualification());
         updatedTeacher.setCourseList(teacher.getCourseList());
-        Teacher savedTeacher = this.teacherDao.save(updatedTeacher);
-        return savedTeacher;
+        return this.teacherDao.save(updatedTeacher);
     }
 }

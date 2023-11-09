@@ -2,7 +2,7 @@ package com.auca__mis.service.implementation;
 
 import com.auca__mis.dao.ISemesterDao;
 import com.auca__mis.model.Semester;
-import com.auca__mis.service.SemesterService;
+import com.auca__mis.service.ISemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class SemesterServiceImplementation implements SemesterService {
+public class ISemesterServiceImplementation implements ISemesterService {
 
     private ISemesterDao semesterDao;
     @Autowired
-    public SemesterServiceImplementation(ISemesterDao semesterDao) {
+    public ISemesterServiceImplementation(ISemesterDao semesterDao) {
         this.semesterDao = semesterDao;
     }
 

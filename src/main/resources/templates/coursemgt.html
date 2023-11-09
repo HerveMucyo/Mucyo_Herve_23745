@@ -58,8 +58,8 @@
                         <option>Select semester</option>
                         <%
                             List<Semester> semesterList = new ArrayList<>();
-                            SemesterService semesterService = new SemesterServiceImplementation();
-                            semesterList = semesterService.findAllSemesters();
+                            SemesterService ISemesterService = new SemesterServiceImplementation();
+                            semesterList = ISemesterService.findAllSemesters();
 
                             for(Semester semester: semesterList){
 
@@ -75,8 +75,8 @@
                         <option>Select lecturer</option>
                         <%
                             List<Teacher> teacherList = new ArrayList<>();
-                            TeacherService teacherService = new TeacherServiceImplementation();
-                            teacherList = teacherService.findAllTeachers();
+                            TeacherService ITeacherService = new TeacherServiceImplementation();
+                            teacherList = ITeacherService.findAllTeachers();
 
                             for(Teacher teacher: teacherList){
                         %>

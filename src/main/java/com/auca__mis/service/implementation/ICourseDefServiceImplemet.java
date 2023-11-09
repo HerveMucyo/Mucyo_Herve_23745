@@ -2,7 +2,7 @@ package com.auca__mis.service.implementation;
 
 import com.auca__mis.dao.ICourseDefinitionDao;
 import com.auca__mis.model.CourseDefinition;
-import com.auca__mis.service.CourseDefinitionService;
+import com.auca__mis.service.ICourseDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 @Service
-public class CourseDefServiceImplemet implements CourseDefinitionService {
+public class ICourseDefServiceImplemet implements ICourseDefinitionService {
    private ICourseDefinitionDao dao;
     @Autowired
-    public CourseDefServiceImplemet(ICourseDefinitionDao courseDefinitionDao) {
+    public ICourseDefServiceImplemet(ICourseDefinitionDao courseDefinitionDao) {
         this.dao = courseDefinitionDao;
     }
 

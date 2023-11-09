@@ -5,7 +5,7 @@ import com.auca__mis.model.StudentRegistration;
 import java.util.List;
 import java.util.UUID;
 
-public interface StudRegService {
+public interface IStudRegService {
     public boolean createStudentRegistration(StudentRegistration registration);
     public List<StudentRegistration> registrationList();
     public boolean deleteStudentRegistration(StudentRegistration registration);

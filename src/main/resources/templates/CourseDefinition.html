@@ -35,7 +35,7 @@
     <div class="card--container">
       <h3 class="main--title">Insert / Modify Data</h3>
 
-      <form th:action="@{/courseDef/create}"  method="post" th:object="${courseDefs}" class="form-one" >
+      <form th:action="@{/courseDef/create}"  method="post" th:object="${courseDef}" class="form-one" >
         <div class="one">
           <label>Course Code</label>
           <input type="text" th:field="*{code}" id="" placeholder="" value="" required/>

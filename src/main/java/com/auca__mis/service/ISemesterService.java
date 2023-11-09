@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface SemesterService {
+public interface ISemesterService {
     void saveSemester(Semester semester);
     Semester getSemesterById(UUID id);
     void deleteSemester(UUID id);

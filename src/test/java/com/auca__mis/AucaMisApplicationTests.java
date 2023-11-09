@@ -2,7 +2,7 @@ package com.auca__mis;
 
 import com.auca__mis.dao.ISemesterDao;
 import com.auca__mis.model.Semester;
-import com.auca__mis.service.SemesterService;
+import com.auca__mis.service.ISemesterService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 class AucaMisApplicationTests {
 	@Autowired
-	private SemesterService semesterService;
+	private ISemesterService ISemesterService;
 
 	@Autowired
 	private ISemesterDao semesterDao;
@@ -30,10 +30,10 @@ class AucaMisApplicationTests {
 		semester.setEndDate(LocalDate.of(2023, 6, 30));
 
 		// Save the Semester
-		semesterService.saveSemester(semester);
+		ISemesterService.saveSemester(semester);
 
 		// Retrieve the saved Semester from the database
-		Semester savedSemester = semesterService.getSemesterById(semester.getId());
+		Semester savedSemester = ISemesterService.getSemesterById(semester.getId());
 
 		// Verify that the retrieved Semester matches the one we saved
 		assertNotNull(savedSemester);
@@ -51,17 +51,17 @@ class AucaMisApplicationTests {
 		semester.setEndDate(LocalDate.of(2023, 12, 31));
 
 		// Save the Semester
-		semesterService.saveSemester(semester);
+		ISemesterService.saveSemester(semester);
 
 		// Modify the Semester attributes
 		semester.setName("Updated Fall 2023");
 		semester.setStartDate(LocalDate.of(2023, 8, 30));
 
 		// Update the Semester
-		semesterService.updateSemester(semester);
+		ISemesterService.updateSemester(semester);
 
 		// Retrieve the updated Semester from the database
-		Semester updatedSemester = semesterService.getSemesterById(semester.getId());
+		Semester updatedSemester = ISemesterService.getSemesterById(semester.getId());
 
 		// Verify that the Semester was successfully updated
 		assertNotNull(updatedSemester);
@@ -79,13 +79,13 @@ class AucaMisApplicationTests {
 		semester.setEndDate(LocalDate.of(2024, 3, 31));
 
 		// Save the Semester
-		semesterService.saveSemester(semester);
+		ISemesterService.saveSemester(semester);
 
 		// Delete the Semester
-		semesterService.deleteSemester(semester.getId());
+		ISemesterService.deleteSemester(semester.getId());
 
 		// Attempt to retrieve the deleted Semester
-		Semester deletedSemester = semesterService.getSemesterById(semester.getId());
+		Semester deletedSemester = ISemesterService.getSemesterById(semester.getId());
 
 		// Verify that the Semester was successfully deleted
 		assertNull(deletedSemester);
