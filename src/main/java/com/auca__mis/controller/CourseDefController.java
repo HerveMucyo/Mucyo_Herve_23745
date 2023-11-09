@@ -19,7 +19,7 @@ public class CourseDefController {
         this.service = service;
     }
 
-
+/*
     @GetMapping("/courseDef")
     public String showCourseDefDashboard(Model model) {
 
@@ -50,8 +50,8 @@ public class CourseDefController {
                                     Model model,
                                  @PathVariable UUID id){
         model.addAttribute("courseDefs", service.getCourseDefById(id));
-        return "/CourseDefinition";
+        return "redirect:/CourseDefinition";
     }
-
+*/
 
 }
