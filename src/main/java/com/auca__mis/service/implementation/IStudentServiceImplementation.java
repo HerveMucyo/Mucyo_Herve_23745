@@ -2,17 +2,13 @@ package com.auca__mis.service.implementation;
 
 import com.auca__mis.dao.StudentDao;
 import com.auca__mis.model.Student;
-import com.auca__mis.model.Teacher;
 import com.auca__mis.service.IStudentService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -30,7 +26,6 @@ public class IStudentServiceImplementation implements IStudentService {
 
     @Override
     public Student getStudentById(Student student) {
-
 
         return this.studentDao.findById(student.getId())
                 .orElseThrow(() ->

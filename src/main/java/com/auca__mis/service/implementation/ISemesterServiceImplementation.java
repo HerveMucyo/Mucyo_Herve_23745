@@ -3,6 +3,9 @@ package com.auca__mis.service.implementation;
 import com.auca__mis.dao.ISemesterDao;
 import com.auca__mis.model.Semester;
 import com.auca__mis.service.ISemesterService;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +14,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional
+@AllArgsConstructor
+@Slf4j
 public class ISemesterServiceImplementation implements ISemesterService {
 
     private ISemesterDao semesterDao;
-    @Autowired
-    public ISemesterServiceImplementation(ISemesterDao semesterDao) {
-        this.semesterDao = semesterDao;
-    }
+
 
     @Override
     public void saveSemester(Semester semester) {
@@ -31,14 +34,19 @@ public class ISemesterServiceImplementation implements ISemesterService {
     }
 
     @Override
-    public void updateSemester(Semester semester) {
-        // Check if the semester exists
-        UUID semesterId = semester.getId();
-        if (semesterId == null || !semesterDao.existsById(semesterId)) {
-            throw new RuntimeException("Semester not found for id: " + semesterId);
-        }
+    public Semester updateSemester(Semester semester) {
+        Semester updatedSemester = this.semesterDao.findById(semester.getId())
+                .orElseThrow(() -> new RuntimeException("Semester of Id:" + semester.getId() + "Not found"));
 
-        semesterDao.save(semester);
+        updatedSemester.setId(semester.getId());
+        updatedSemester.setName(semester.getName());
+        updatedSemester.setStartDate(semester.getStartDate());
+        updatedSemester.setEndDate(semester.getEndDate());
+        updatedSemester.setStudentRegistrations(semester.getStudentRegistrations());
+        updatedSemester.setCourseList(semester.getCourseList());
+
+        return semesterDao.save(updatedSemester);
+
     }
 
     @Override

@@ -17,7 +17,6 @@ import java.util.List;
 @Slf4j
 public class IAcademicUnitServiceImplementation implements IAcademicUnitService {
 
-
     private IAcademicUnitDao academicUnitDao;
 
 

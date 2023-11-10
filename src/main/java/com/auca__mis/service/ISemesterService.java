@@ -11,6 +11,6 @@ public interface ISemesterService {
     Semester getSemesterById(UUID id);
     void deleteSemester(UUID id);
     List<Semester> getAllSemesters();
-    void updateSemester(Semester semester);
+    Semester updateSemester(Semester semester);
 
 }
