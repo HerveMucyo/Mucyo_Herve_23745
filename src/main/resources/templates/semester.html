@@ -48,7 +48,7 @@
                     <label for="endDate">End date</label>
                     <input type="date" id="endDate" th:field="*{endDate}" required/>
                 </div>
-                <button type="submit" name="action" id="formBtn">Submit</button>
+                <button type="submit" name="action" id="formBtn" value="Submit"></button>
             </form>
         </div>
         <div class="tabular--wrapper">
@@ -73,8 +73,8 @@
                         <td th:text="${sem.getEndDate()}"></td>
                         <td>
                             <div class="cell" data-title="Action">
-                                <a th:href="${'/semester/update/' + sem.getId()}" class="update-btn">Edit</a>
-                                <a th:href="${'/semester/delete/' + sem.getId()}" class="delete-btn">Delete</a>
+                                <a  class="update-btn">Edit</a>
+                                <a  class="delete-btn">Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -83,7 +83,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="7">Total: Semesters</td>
+                        <td colspan="7">Total: <span th:text="${semestersList.size()}"></span> Semesters</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -104,7 +104,6 @@
     const updateBtn = document.querySelectorAll(".update-btn");
     const deleteBtn = document.querySelectorAll(".delete-btn");
     const formBtn = document.getElementById("formBtn");
-
 
     updateBtn.forEach(button => {
         button.addEventListener('click', () => {
@@ -139,11 +138,9 @@
 
         })
     });
-
     form.addEventListener("submit",e=>{
         e.preventDefault();
         form.action="/semester/create?action="+formBtn.value;
         form.submit();
     })
-
 </script>

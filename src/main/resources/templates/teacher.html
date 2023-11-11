@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Teacher Dashboard</title>
     <link
             rel="stylesheet"
@@ -11,7 +11,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body id="body-two">
 <th:block th:include="sidebar"></th:block>
@@ -25,8 +25,8 @@
         <div class="user--info">
             <div class="search--box">
                 <i class="fa solid fa-search"></i>
-                <input type="text" placeholder="Search" />
-                <img src="/images/girl.jpg" alt="" />
+                <input type="text" placeholder="Search"/>
+                <img src="/images/girl.jpg" alt=""/>
             </div>
         </div>
     </div>
@@ -34,26 +34,28 @@
         <div class="card--container">
             <h3 class="main--title">Insert / Modify Data</h3>
 
-            <form th:action="@{/teacher/create}" method="post"  th:object="${teacher}"  class="form-one">
+            <form th:action="@{/teacher/create}" method="post" id="form" th:object="${teacher}" class="form-one">
+                <input type="text" id="teacherId" style="display: none" th:field="*{id}">
+
                 <div class="one">
                     <label>Teacher Code</label>
-                    <input type="text" th:field="*{code}" id="" placeholder="24**"  required/>
+                    <input type="text" id="teacherCode" th:field="*{code}" placeholder="24**" required/>
                 </div>
                 <div class="one">
                     <label>Teacher Name</label>
-                    <input type="text" th:field="*{name}" placeholder="PETER" required />
+                    <input type="text" id="teacherName" th:field="*{name}" placeholder="PETER" required/>
                 </div>
-<div class="last">
-    <label>Qualifications:</label>
-    <label>
-        <select name="qualification">
-            <option value="MASTERS">Masters</option>
-            <option value="PHD">Phd</option>
-            <option value="PROFESSOR">Professor</option>
-        </select>
-    </label>
-</div>
-                <button type="submit">Submit</button>
+                <div class="last">
+                    <label>Qualifications:</label>
+                    <label>
+                        <select name="qualification" id="teacherQual">
+                            <option value="MASTERS">Masters</option>
+                            <option value="PHD">Phd</option>
+                            <option value="PROFESSOR">Professor</option>
+                        </select>
+                    </label>
+                </div>
+                <input type="submit" id="formBtn" value="Submit"/>
             </form>
         </div>
         <div class="tabular--wrapper">
@@ -70,21 +72,22 @@
                     </thead>
                     <tbody>
                     <tr th:each="tr: ${teacherList}">
-
+                        <td th:text="${tr.id}" style="display: none"></td>
                         <td th:text="${tr.getCode()}"></td>
                         <td th:text="${tr.getName()}"></td>
                         <td th:text="${tr.getQualification()}"></td>
-                        <td> <div class="cell" data-title="Action">
-                            <a th:href="@{'/teacher/update/'+${tr.getId()}}">Edit</a>
-                            <a th:href="@{'/teacher/delete/'+${tr.getId()}}">Delete</a>
-                        </div>
+                        <td>
+                            <div class="cell" data-title="Action">
+                                <a class="update-btn" style="background-color: skyblue">Edit</a>
+                                <a class="delete-btn" style="background-color: red">Delete</a>
+                            </div>
                     </tr>
 
 
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="7">Total: 0  Teachers</td>
+                        <td colspan="7">Total: <span th:text="${teacherList.size()}"></span> Teachers</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -96,3 +99,54 @@
 </div>
 </body>
 </html>
+
+<script defer>
+    const form = document.getElementById("form");
+    const teacherId = document.getElementById("teacherId");
+    const teacherCode = document.getElementById("teacherCode");
+    const teacherName = document.getElementById("teacherName");
+    const teacherQual = document.getElementById("teacherQual");
+    const updateBtn = document.querySelectorAll(".update-btn");
+    const deleteBtn = document.querySelectorAll(".delete-btn");
+    const formBtn = document.getElementById("formBtn");
+
+    updateBtn.forEach(button => {
+        button.addEventListener('click', () => {
+
+            const tr = button.closest("tr");
+            const fields = tr.getElementsByTagName("td");
+
+            teacherId.value = fields[0].textContent;
+            teacherCode.value = fields[1].textContent;
+            teacherName.value = fields[2].textContent;
+            teacherQual.value = fields[3].textContent;
+
+            formBtn.value = "Update";
+            formBtn.style.backgroundColor = "skyBlue";
+
+        })
+    });
+
+    deleteBtn.forEach(button => {
+        button.addEventListener('click', () => {
+
+            const tr = button.closest("tr");
+            const fields = tr.getElementsByTagName("td");
+
+            teacherId.value = fields[0].textContent;
+            teacherCode.value = fields[1].textContent;
+            teacherName.value = fields[2].textContent;
+            teacherQual.value = fields[3].textContent;
+
+            formBtn.value = "Delete";
+            formBtn.style.backgroundColor = "Red";
+
+        })
+    });
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+        form.action = "/teacher/create?action=" + formBtn.value;
+        form.submit();
+    })
+</script>
+

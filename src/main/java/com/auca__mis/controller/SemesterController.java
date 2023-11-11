@@ -14,6 +14,7 @@ import java.util.UUID;
 @Controller
 public class SemesterController {
     private final ISemesterService ISemesterService;
+
     @Autowired
     public SemesterController(ISemesterService ISemesterService) {
         this.ISemesterService = ISemesterService;
@@ -23,26 +24,26 @@ public class SemesterController {
     public String showSemesterDashboard(Model model) {
 
         List<Semester> semestersList = ISemesterService.getAllSemesters();
-        model.addAttribute("semester",new Semester());
+        model.addAttribute("semester", new Semester());
         model.addAttribute("semestersList", semestersList);
         return "semester";
 
     }
+
     @PostMapping("/semester/create")
-    public String createSemester(@ModelAttribute("semester") Semester semester, @Param("action")String action) {
+    public String createSemester(@ModelAttribute("semester") Semester semester, @Param("action") String action) {
 
 
-        if(action.equals("Delete")){
+        if (action.equals("Delete")) {
             ISemesterService.deleteSemester(semester);
-        }else if(action.equals("Update")){
+        } else if (action.equals("Update")) {
             semester.setId(semester.getId());
             ISemesterService.updateSemester(semester);
-        }else {
+        } else {
             ISemesterService.saveSemester(semester);
         }
         return "redirect:/semester";
     }
-
 
 
 }

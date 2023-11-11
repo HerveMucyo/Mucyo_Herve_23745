@@ -423,6 +423,18 @@ tfoot td {
   cursor: pointer;
 }
 
+.form-btn {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.form-btn:hover {
+  background-color: #0056b3;
+}
+
 /* Style the submit button on hover */
 .form-one button:hover {
   background-color: #0056b3;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Course Definition Dashboard</title>
+    <title>Student Dashboard</title>
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -35,20 +35,21 @@
         <div class="card--container">
             <h3 class="main--title">Insert / Modify Data</h3>
 
-            <form th:action="@{/student/create}"  method="post" th:object="${student}" class="form-one" >
+            <form th:action="@{/student/create}"  id="form" method="post" th:object="${student}" class="form-one" >
+               <input type="text" id="studId" style="display: none" th:field="*{id}" >
                 <div class="one">
                     <label>Student Code</label>
-                    <input type="text" th:field="*{regNo}"  placeholder="Enter code"  required/>
+                    <input type="text"  id="studCode" th:field="*{regNo}"  placeholder="Enter code"  required/>
                 </div>
                 <div class="one">
                     <label>Student Names</label>
-                    <input type="text" th:field="*{fullNames}"   placeholder="Enter names" required />
+                    <input type="text"  id="studNames" th:field="*{fullNames}"   placeholder="Enter names" required />
                 </div>
                 <div class="one">
                     <label>Date of Birth</label>
-                    <input type="date" th:field="*{dob}"  required />
+                    <input type="date"  id="dob" th:field="*{dob}"  required />
                 </div>
-                <button type="submit">Submit</button>
+                <input type="submit" id="formBtn" value="Submit"/>
             </form>
         </div>
         <div class="tabular--wrapper">
@@ -65,19 +66,20 @@
                     </thead>
                     <tbody>
                     <tr th:each="stud: ${studentsList}">
+                        <td th:text="${stud.getId()}" style="display: none"></td>
                         <td th:text="${stud.getRegNo()}"> </td>
                         <td th:text="${stud.getFullNames()}"> </td>
                         <td th:text="${stud.getDob()}"> </td>
                         <td>
                             <div class="cell" data-title="Action">
-                            <a th:href="@{'/student/update/'+${stud.getId()}}">Edit</a>
-                            <a th:href="@{'/student/delete/'+${stud.getId()}}">Delete</a>
+                            <a  class="update-btn">Edit</a>
+                            <a  class="delete-btn">Delete</a>
                         </div>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="7">Total:  Semesters</td>
+                        <td colspan="7">Total: <span th:text="${studentsList.size()}"></span> Students</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -89,3 +91,53 @@
 </div>
 </body>
 </html>
+
+<script defer>
+    const form = document.getElementById("form");
+    const studId = document.getElementById("studId");
+    const studCode = document.getElementById("studCode");
+    const studNames = document.getElementById("studNames");
+    const dob = document.getElementById("dob");
+    const updateBtn = document.querySelectorAll(".update-btn");
+    const deleteBtn = document.querySelectorAll(".delete-btn");
+    const formBtn = document.getElementById("formBtn");
+
+    updateBtn.forEach(button => {
+        button.addEventListener('click', () => {
+
+            const tr = button.closest("tr");
+            const fields = tr.getElementsByTagName("td");
+
+            studId.value = fields[0].textContent;
+            studCode.value = fields[1].textContent;
+            studNames.value = fields[2].textContent;
+            dob.value = fields[3].textContent;
+
+            formBtn.value = "Update";
+            formBtn.style.backgroundColor = "skyBlue";
+
+        })
+    });
+
+    deleteBtn.forEach(button => {
+        button.addEventListener('click', () => {
+
+            const tr = button.closest("tr");
+            const fields = tr.getElementsByTagName("td");
+
+            studId.value = fields[0].textContent;
+            studCode.value = fields[1].textContent;
+            studNames.value = fields[2].textContent;
+            dob.value = fields[3].textContent;
+
+            formBtn.value = "Delete";
+            formBtn.style.backgroundColor = "Red";
+
+        })
+    });
+    form.addEventListener("submit",e=>{
+        e.preventDefault();
+        form.action="/student/create?action="+formBtn.value;
+        form.submit();
+    })
+</script>
