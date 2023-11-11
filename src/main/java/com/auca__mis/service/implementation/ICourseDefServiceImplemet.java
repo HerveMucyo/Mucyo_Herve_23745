@@ -21,13 +21,13 @@ public class ICourseDefServiceImplemet implements ICourseDefinitionService {
 
 
     @Override
-    public void saveCourseDef(CourseDefinition courseDefinition) {
-       this.dao.save(courseDefinition);
+    public CourseDefinition saveCourseDef(CourseDefinition courseDefinition) {
+     return   this.dao.save(courseDefinition);
     }
 
     @Override
-    public CourseDefinition getCourseDefById(UUID id) {
-        Optional<CourseDefinition>optional=dao.findById(id);
+    public CourseDefinition getCourseDefById(CourseDefinition courseDefinition) {
+        Optional<CourseDefinition>optional=dao.findById(courseDefinition.getId());
 
         return optional.orElse(null);
     }

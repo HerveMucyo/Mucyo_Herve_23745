@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8" content="text/html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" content="text/html"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Semester Dashboard</title>
     <link
             rel="stylesheet"
@@ -11,7 +11,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body id="body-two">
 <th:block th:include="sidebar"></th:block>
@@ -25,71 +25,125 @@
         <div class="user--info">
             <div class="search--box">
                 <i class="fa solid fa-search"></i>
-                <input type="text" placeholder="Search" />
-                <img src="../static/images/girl.jpg" alt="" />
+                <input type="text" placeholder="Search"/>
+                <img src="/images/girl.jpg" alt=""/>
             </div>
         </div>
     </div>
     <div class="main-display">
-    <div class="card--container">
-        <h3 class="main--title">Insert / Modify Data</h3>
-        <form th:action="@{/semester/create}"  method="post" th:object="${semester}" class="form-one" >
-            <div class="one">
-                <label>Semester Name</label>
-                <label for="semName"></label>
-                <input type="text" id="semName" th:field="*{name}"  required />
-            </div>
-            <div class="one">
-                <label for="startDate">Start date</label>
-                <input type="date" id="startDate"  th:field="*{startDate}" required />
-            </div>
-            <div class="one">
-                <label for="endDate">End date</label>
-                <input type="date" id="endDate"  th:field="*{endDate}" required />
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-    <div class="tabular--wrapper">
-        <h3 class="main--title">Semester data</h3>
-        <div class="table--container">
-            <table>
-                <thead>
-                <tr>
-                    <th>SEM NAME</th>
-                    <th>START DATE</th>
-                    <th>END DATE</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr>
-                <tr th:each="sem : ${semestersList}">
-                    <td th:text="${sem.getName()}"></td>
-                    <td th:text="${sem.getStartDate()}"></td>
-                    <td th:text="${sem.getEndDate()}"></td>
-                    <td>
-                        <div class="cell" data-title="Action">
-                            <a th:href="${'/semester/update/' + sem.getId()}">Edit</a>
-                            <a th:href="${'/semester/delete/' + sem.getId()}">Delete</a>
-                        </div>
-                    </td>
-                </tr>
-                </tr>
-
-
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="7">Total:   Semesters</td>
-                </tr>
-                </tfoot>
-            </table>
+        <div class="card--container">
+            <h3 class="main--title">Insert / Modify Data</h3>
+            <form th:action="@{/semester/create}" method="post" th:object="${semester}" id="form" class="form-one">
+                <input type="text" id="semId" style="display: none;" th:field="*{id}">
+                <div class="one">
+                    <label>Semester Name</label>
+                    <label for="semName"></label>
+                    <input type="text" id="semName" th:field="*{name}" required/>
+                </div>
+                <div class="one">
+                    <label for="startDate">Start date</label>
+                    <input type="date" id="startDate" th:field="*{startDate}" required/>
+                </div>
+                <div class="one">
+                    <label for="endDate">End date</label>
+                    <input type="date" id="endDate" th:field="*{endDate}" required/>
+                </div>
+                <button type="submit" name="action" id="formBtn">Submit</button>
+            </form>
         </div>
-    </div>
+        <div class="tabular--wrapper">
+            <h3 class="main--title">Semester data</h3>
+            <div class="table--container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>SEM NAME</th>
+                        <th>START DATE</th>
+                        <th>END DATE</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-</div>
+                    <tr>
+                    <tr th:each="sem : ${semestersList}">
+                        <td th:text="${sem.id}" style="display: none"></td>
+                        <td th:text="${sem.getName()}"></td>
+                        <td th:text="${sem.getStartDate()}"></td>
+                        <td th:text="${sem.getEndDate()}"></td>
+                        <td>
+                            <div class="cell" data-title="Action">
+                                <a th:href="${'/semester/update/' + sem.getId()}" class="update-btn">Edit</a>
+                                <a th:href="${'/semester/delete/' + sem.getId()}" class="delete-btn">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">Total: Semesters</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>
+
+<script defer>
+    const form = document.getElementById("form");
+    const semId = document.getElementById("semId");
+    const semName = document.getElementById("semName");
+    const startDate = document.getElementById("startDate");
+    const endDate = document.getElementById("endDate");
+    const updateBtn = document.querySelectorAll(".update-btn");
+    const deleteBtn = document.querySelectorAll(".delete-btn");
+    const formBtn = document.getElementById("formBtn");
+
+
+    updateBtn.forEach(button => {
+        button.addEventListener('click', () => {
+
+            const tr = button.closest("tr");
+            const fields = tr.getElementsByTagName("td");
+
+            semId.value = fields[0].textContent;
+            semName.value = fields[1].textContent;
+            startDate.value = fields[2].textContent;
+            endDate.value = fields[3].textContent;
+
+            formBtn.value = "Update";
+            formBtn.style.backgroundColor = "skyBlue";
+
+        })
+    });
+
+    deleteBtn.forEach(button => {
+        button.addEventListener('click', () => {
+
+            const tr = button.closest("tr");
+            const fields = tr.getElementsByTagName("td");
+
+            semId.value = fields[0].textContent;
+            semName.value = fields[1].textContent;
+            startDate.value = fields[2].textContent;
+            endDate.value = fields[3].textContent;
+
+            formBtn.value = "Delete";
+            formBtn.style.backgroundColor = "Red";
+
+        })
+    });
+
+    form.addEventListener("submit",e=>{
+        e.preventDefault();
+        form.action="/semester/create?action="+formBtn.value;
+        form.submit();
+    })
+
+</script>

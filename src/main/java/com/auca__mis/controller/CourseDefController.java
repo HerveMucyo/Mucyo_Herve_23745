@@ -44,13 +44,13 @@ public class CourseDefController {
         service.deleteCourseById(id);
         return "redirect:/courseDef";
     }
-    @RequestMapping(path = "/courseDef/update/{id}", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/courseDef/update/{id}", method = RequestMethod.GET)
     public String editCourseDef(@ModelAttribute("courseDefs")
                                     Model model,
-                                 @PathVariable UUID id){
-        model.addAttribute("courseDefs", service.getCourseDefById(id));
+                                 @PathVariable CourseDefinition courseDefinition){
+        model.addAttribute("courseDefs", service.getCourseDefById(courseDefinition.getId()));
         return "redirect:/CourseDefinition";
-    }
+    }*/
 
 
 }

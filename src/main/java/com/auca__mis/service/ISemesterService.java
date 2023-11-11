@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public interface ISemesterService {
     void saveSemester(Semester semester);
-    Semester getSemesterById(UUID id);
-    void deleteSemester(UUID id);
+    Semester getSemesterById(Semester semester);
+    void deleteSemester(Semester semester);
     List<Semester> getAllSemesters();
     Semester updateSemester(Semester semester);
 

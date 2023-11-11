@@ -28,9 +28,8 @@ public class ISemesterServiceImplementation implements ISemesterService {
     }
 
     @Override
-    public Semester getSemesterById(UUID id) {
-        Optional<Semester> optional = semesterDao.findById(id);
-        return optional.orElse(null);
+    public Semester getSemesterById(Semester semester) {
+   return semesterDao.findById(semester.getId()).orElseThrow(()->new RuntimeException("Semester not found"));
     }
 
     @Override
@@ -50,12 +49,13 @@ public class ISemesterServiceImplementation implements ISemesterService {
     }
 
     @Override
-    public void deleteSemester(UUID id) {
+    public void deleteSemester(Semester semester) {
         // Check if the semester exists
-        if (!semesterDao.existsById(id)) {
-            throw new RuntimeException("Semester not found for id: " + id);
+        if (!semesterDao.existsById(semester.getId())) {
+            throw new RuntimeException("Semester not found for id: " + semester.getId());
+        }else{
+            semesterDao.deleteById(semester.getId());
         }
-        semesterDao.deleteById(id);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.auca__mis.controller;
 import com.auca__mis.model.Semester;
 import com.auca__mis.service.ISemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,27 +29,20 @@ public class SemesterController {
 
     }
     @PostMapping("/semester/create")
-    public String createSemester(@ModelAttribute("semester") Semester semester) {
-        ISemesterService.saveSemester(semester);
+    public String createSemester(@ModelAttribute("semester") Semester semester, @Param("action")String action) {
+
+
+        if(action.equals("Delete")){
+            ISemesterService.deleteSemester(semester);
+        }else if(action.equals("Update")){
+            semester.setId(semester.getId());
+            ISemesterService.updateSemester(semester);
+        }else {
+            ISemesterService.saveSemester(semester);
+        }
         return "redirect:/semester";
     }
 
-//    @RequestMapping(value = "semester/update", method = RequestMethod.GET)
-//    public String updateSemester(@ModelAttribute("semester") Semester semester) {
-//        ISemesterService.updateSemester(semester);
-//        return "redirect:/semester";
-//    }
 
-    @RequestMapping(value = "semester/delete/{id}", method = RequestMethod.GET)
-    public String deleteSemester(@PathVariable UUID id) {
-        ISemesterService.deleteSemester(id);
-        return "redirect:/semester";
-    }
-
-    @RequestMapping(path = "/semester/update/{id}", method = RequestMethod.GET)
-    public String editSemester(Model model, @PathVariable(value = "id")UUID id){
-        model.addAttribute("semester", ISemesterService.getSemesterById(id));
-        return "redirect:/semester";
-    }
 
 }
