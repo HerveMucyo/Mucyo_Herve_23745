@@ -33,4 +33,5 @@ public class StudentRegistration {
     private ERegistrationStatus status;
     @OneToMany
     private List<StudentCourse> studentCoursesList;
+//hi
 }
