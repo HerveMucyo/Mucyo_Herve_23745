@@ -27,9 +27,9 @@ public class AcademicUnit {
     @ManyToOne
     @JoinColumn(name = "ACADEMIC_UNIT")
     private AcademicUnit academicUnit;
-    @ManyToOne
-    private StudentRegistration studentRegistrationList;
-    @OneToMany(mappedBy = "academicUnit")
-    private List<Course> courseList;
+//    @ManyToOne
+//    private StudentRegistration studentRegistrationList;
+//    @OneToMany(mappedBy = "academicUnit")
+//    private List<Course> courseList;
 
 }

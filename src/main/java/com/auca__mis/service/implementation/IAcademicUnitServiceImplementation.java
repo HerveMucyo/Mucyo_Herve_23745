@@ -24,6 +24,7 @@ public class IAcademicUnitServiceImplementation implements IAcademicUnitService 
     public AcademicUnit saveAcademicUnit(AcademicUnit academicUnit) {
 
         AcademicUnitController.randomCodes(academicUnit);
+
         return academicUnitDao.save(academicUnit);
     }
 

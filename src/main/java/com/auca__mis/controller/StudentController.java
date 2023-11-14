@@ -23,13 +23,10 @@ public class StudentController {
 
     @GetMapping("/student")
     private String showStudentDashboard(Model model) {
-
         List<Student> studentList = IStudentService.getAllStudents();
         model.addAttribute("student", new Student());
         model.addAttribute("studentsList", studentList);
-
         return "student";
-
     }
 
     @PostMapping("/student/create")
