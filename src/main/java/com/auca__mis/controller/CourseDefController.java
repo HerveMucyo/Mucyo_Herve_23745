@@ -3,6 +3,7 @@ package com.auca__mis.controller;
 import com.auca__mis.model.CourseDefinition;
 import com.auca__mis.service.ICourseDefinitionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,28 +30,17 @@ public class CourseDefController {
 
     }
     @PostMapping("/courseDef/create")
-    public String createCourseDef(@ModelAttribute("courseDef") CourseDefinition courseDefinition) {
-        service.saveCourseDef(courseDefinition);
-        return "redirect:/courseDef";
-    }
+    public String createCourseDef(@ModelAttribute("courseDef") CourseDefinition courseDefinition, @Param("action") String action) {
+      if(action.equals("Delete")){
+          service.deleteCourseById(courseDefinition);
+      }else if(action.equals("Update")){
+          service.updateCourseDef(courseDefinition);
+      }else{
 
-//    @RequestMapping(value = "semester/update", method = RequestMethod.GET)
-//    public String updateSemester(@ModelAttribute("semester") Semester semester) {
-//        semesterService.updateSemester(semester);
-//        return "redirect:/semester";
-//    }
-    @RequestMapping(value = "courseDef/delete/{id}", method = RequestMethod.GET)
-    public String deleteCourseDef(@PathVariable UUID id) {
-        service.deleteCourseById(id);
+          service.saveCourseDef(courseDefinition);
+      }
         return "redirect:/courseDef";
     }
-    /*@RequestMapping(path = "/courseDef/update/{id}", method = RequestMethod.GET)
-    public String editCourseDef(@ModelAttribute("courseDefs")
-                                    Model model,
-                                 @PathVariable CourseDefinition courseDefinition){
-        model.addAttribute("courseDefs", service.getCourseDefById(courseDefinition.getId()));
-        return "redirect:/CourseDefinition";
-    }*/
 
 
 }

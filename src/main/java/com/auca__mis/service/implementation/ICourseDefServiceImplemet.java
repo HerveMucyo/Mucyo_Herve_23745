@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class ICourseDefServiceImplemet implements ICourseDefinitionService {
    private ICourseDefinitionDao dao;
@@ -33,11 +36,11 @@ public class ICourseDefServiceImplemet implements ICourseDefinitionService {
     }
 
     @Override
-    public void deleteCourseById(UUID id) {
-if(!dao.existsById(id)){
+    public void deleteCourseById(CourseDefinition courseDefinition) {
+if(!dao.existsById(courseDefinition.getId())){
     throw new RuntimeException(" course def not found");
 }
-        dao.deleteById(id);
+        dao.deleteById(courseDefinition.getId());
     }
 
     @Override

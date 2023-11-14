@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface ICourseDefinitionService {
     CourseDefinition saveCourseDef(CourseDefinition courseDefinition);
     CourseDefinition getCourseDefById(CourseDefinition courseDefinition);
-    void deleteCourseById(UUID id);
+    void deleteCourseById(CourseDefinition courseDefinition);
     List<CourseDefinition> getAllCourseDefs();
     void updateCourseDef(CourseDefinition courseDefinition);
 }
