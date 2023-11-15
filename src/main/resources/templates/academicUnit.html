@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,15 +40,15 @@
         <h2 class="main--title">Add Program</h2>
         <form th:action="@{/acadUnit/create}" th:object="${acadUnit}" method="post" class="form-one">
           <div class="one">
-            <label>Program Name</label>
-            <input type="text" name="program1" id="program1" required/>
+            <label for="programName">Program Name</label>
+            <input type="text" id="programName" th:field="*{name}" required/>
             <button type="submit">Submit</button>
           </div>
         </form>
       </div>
       <div class="forms">
       <h2 class="main--title">Add Faculty</h2>
-      <form th:action=" " method="post" th:object="" class="form-one">
+      <form th:action="@{/acadUnit/create}" method="post" th:object="${acadUnit}" class="form-one">
         <small class="msg" style="color: darkred;"></small>
         <small class="msg" style="color: green;"></small>
         <div class="last">
@@ -56,7 +56,7 @@
           <select name="programme" id="programme1">
             <option>select program</option>
 
-          <option value="<%=units.getName()%>"></option>
+          <option value=""></option>
 
           </select>
           <label for="programme1">Faculty Name:</label>
@@ -69,18 +69,16 @@
       <h2 class="main--title">Add Department</h2>
       <form action="" method="post" class="form-one">
         <div class="last">
-          <label>Choose Program</label>
-          <select name="programme" id="programme2">
+          <label for="programme2">Choose Program</label><select name="programme" id="programme2">
             <option>Select Program</option>
 
-            <option value="<%=units.getName()%>"><%=units.getName()%></option>
+            <option value=""></option>
 
           </select>
-          <label>Choose Faculty</label>
-          <select name="faculty" id="department1">
+          <label for="department1">Choose Faculty</label><select name="faculty" id="department1">
             <option>Select Faculty</option>
 
-               <option value="<%=units.getName()%>"><%=units.getName()%></option>
+               <option value=""></option>
 
           </select>
           <div class="one">
@@ -105,19 +103,18 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
-          <th>CATEGORY</th>
           <th>UNIT</th>
+          <th>PARENT</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr>
+        <tr th:each="ac: ${academicUnitList}">
 
-          <td></td>
-          <td></td>
-          <td></td>
-
-          <td></td>
+          <td th:text="${ac.code}"></td>
+          <td th:text="${ac.name}"></td>
+          <td th:text="${ac.unit}"></td>
+          <td th:text="${ac.academicUnit}"></td>
 
           <td>--parent--</td>
 
