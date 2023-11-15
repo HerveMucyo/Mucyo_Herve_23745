@@ -16,6 +16,7 @@
                 </a>
             </li>
             <li>
+                <a th:href="@{}">
                 <a th:href="academicUnit.html">
                     <i class="fa-solid fa-book-open-reader"></i>
                     <span>Academic Unit</span>
@@ -34,9 +35,9 @@
                 </a>
             </li>
             <li>
-                <a th:href="CourseDefinition.html">
+                <a th:href="@{/courseDef}">
                     <i class="fa-solid fa-book-open-reader"></i>
-                    <span>Courses</span>
+                    <span>Courses Definition</span>
                 </a>
             </li>
             <li>
@@ -46,7 +47,7 @@
                 </a>
             </li>
             <li>
-                <a th:href="student.jsp">
+                <a th:href="@{/student}">
                     <i class="fa-solid fa-graduation-cap"></i>
                     <span>Students</span>
                 </a>
