@@ -103,7 +103,7 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
-          <th>UNIT</th>
+          <th>CATEGORY</th>
           <th>PARENT</th>
         </tr>
         </thead>
@@ -111,19 +111,25 @@
 
         <tr th:each="ac: ${academicUnitList}">
 
+<!--          <td th:text="${ac.code}"></td>-->
+<!--          <td th:text="${ac.name}"></td>-->
+<!--          <td th:text="${ac.unit}"></td>-->
+<!--          <td th:if="${ac.academicUnit != null}" th:text="${ac.academicUnit.name}"></td>-->
+<!--          <td th:unless="${ac.academicUnit != null}">&#45;&#45;parent&#45;&#45;</td>-->
           <td th:text="${ac.code}"></td>
           <td th:text="${ac.name}"></td>
           <td th:text="${ac.unit}"></td>
-          <td th:text="${ac.academicUnit}"></td>
-
-          <td>--parent--</td>
-
+          <td>
+            <span th:if="${ac.academicUnit}">[[${ac.academicUnit.name}]]</span>
+            <span th:unless="${ac.academicUnit}">--Parent--</span>
+          </td>
         </tr>
+
 
         </tbody>
         <tfoot>
         <tr>
-          <td colspan="7">Total: Semesters</td>
+          <td colspan="7">Total: <span th:text="${academicUnitList.size()}"/> Academic Units</td>
         </tr>
         </tfoot>
       </table>

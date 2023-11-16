@@ -26,8 +26,19 @@ public class AcademicUnitController {
         List<AcademicUnit> academicUnitList = IAcademicUnitService.findAll();
         model.addAttribute("acadUnit",new AcademicUnit());
         model.addAttribute("academicUnitList", academicUnitList);
+
+//        model.addAttribute("unitList", unitService.unitList());
+//        model.addAttribute("programmeForm", new AcademicUnit());
+//        model.addAttribute("facultyForm", new AcademicUnit());
+//        model.addAttribute("departmentForm", new AcademicUnit());
+//        return "academicUnit";
+
+
         return "academicUnit";
     }
+
+
+
     @PostMapping("/acadUnit/create")
     public String createAcademicUnit(@ModelAttribute("acadUnit") AcademicUnit academicUnit) {
 

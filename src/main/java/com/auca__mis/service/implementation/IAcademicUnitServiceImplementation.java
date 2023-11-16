@@ -62,8 +62,8 @@ public class IAcademicUnitServiceImplementation implements IAcademicUnitService 
         int randomCode = random.nextInt(max - min + 1) + min;
 
         academicUnit.setCode(String.valueOf(randomCode));
-        academicUnit.setUnit(EAcademicUnit.PROGRAMME);
-        academicUnit.setAcademicUnit(academicUnit);
         academicUnit.setName(academicUnit.getName());
+        academicUnit.setUnit(EAcademicUnit.PROGRAMME);
+
     }
 }
