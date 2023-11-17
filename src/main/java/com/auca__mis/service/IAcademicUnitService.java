@@ -10,7 +10,7 @@ public interface IAcademicUnitService {
     AcademicUnit  saveAcademicUnit(AcademicUnit academicUnit);
     public List<AcademicUnit> findAll();
 
-    public AcademicUnit findUnitByName(AcademicUnit academicUnit);
+    public AcademicUnit findUnitByName(String name);
 
     public void deleteUnit(AcademicUnit academicUnit);
 

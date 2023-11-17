@@ -25,9 +25,6 @@ public class IAcademicUnitServiceImplementation implements IAcademicUnitService 
 
     @Override
     public AcademicUnit saveAcademicUnit(AcademicUnit academicUnit) {
-
-        randomCodes(academicUnit);
-
         return academicUnitDao.save(academicUnit);
     }
 
@@ -36,9 +33,9 @@ public class IAcademicUnitServiceImplementation implements IAcademicUnitService 
         return academicUnitDao.findAll();
     }
     @Override
-    public AcademicUnit findUnitByName(AcademicUnit academicUnit) {
+    public AcademicUnit findUnitByName(String name) {
         return this.academicUnitDao.
-                findAcademicUnitsByName(academicUnit.getName());
+                findAcademicUnitsByName(name);
     }
 
     @Override
@@ -54,16 +51,5 @@ public class IAcademicUnitServiceImplementation implements IAcademicUnitService 
         return this.academicUnitDao.findById(academicUnit.getId())
                 .orElseThrow(() -> new RuntimeException("Unit not found with code: " + academicUnit.getCode()));
     }
-    public static void randomCodes(AcademicUnit academicUnit) {
-        int min = 50000; // Smallest 5-digit number
-        int max = 100000; // Largest 5-digit number
 
-        Random random = new Random();
-        int randomCode = random.nextInt(max - min + 1) + min;
-
-        academicUnit.setCode(String.valueOf(randomCode));
-        academicUnit.setName(academicUnit.getName());
-        academicUnit.setUnit(EAcademicUnit.PROGRAMME);
-
-    }
 }

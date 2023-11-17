@@ -38,7 +38,7 @@
       <div style="display: flex">
       <div class="forms">
         <h2 class="main--title">Add Program</h2>
-        <form th:action="@{/acadUnit/create}" th:object="${acadUnit}" method="post" class="form-one">
+        <form th:action="@{/acadUnit/createProgram}" th:object="${acadUnit}" method="post" class="form-one">
           <div class="one">
             <label for="programName">Program Name</label>
             <input type="text" id="programName" th:field="*{name}" required/>
@@ -48,7 +48,7 @@
       </div>
       <div class="forms">
       <h2 class="main--title">Add Faculty</h2>
-      <form th:action="@{/acadUnit/create}" method="post" th:object="${acadUnit}" class="form-one">
+      <form th:action="@{/acadUnit/createFaculty}" method="post" th:object="${faculty}" class="form-one">
         <small class="msg" style="color: darkred;"></small>
         <small class="msg" style="color: green;"></small>
         <div class="last">
@@ -66,12 +66,12 @@
       </form>
       </div>
       <div class="forms">
-      <h2 class="main--title">Add Department</h2>
+      <h2 class="main--title">Add Faculty</h2>
       <form action="" method="post" class="form-one">
         <div class="last">
-          <label for="programme2">Choose Program</label><select name="programme" id="programme2">
+          <label for="programme2">Choose Program</label>
+          <select name="programme" id="programme2" th:field="*{acadUnit.name}">
             <option>Select Program</option>
-
             <option value=""></option>
 
           </select>
@@ -110,12 +110,6 @@
         <tbody>
 
         <tr th:each="ac: ${academicUnitList}">
-
-<!--          <td th:text="${ac.code}"></td>-->
-<!--          <td th:text="${ac.name}"></td>-->
-<!--          <td th:text="${ac.unit}"></td>-->
-<!--          <td th:if="${ac.academicUnit != null}" th:text="${ac.academicUnit.name}"></td>-->
-<!--          <td th:unless="${ac.academicUnit != null}">&#45;&#45;parent&#45;&#45;</td>-->
           <td th:text="${ac.code}"></td>
           <td th:text="${ac.name}"></td>
           <td th:text="${ac.unit}"></td>
