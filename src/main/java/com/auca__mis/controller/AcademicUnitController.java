@@ -15,64 +15,61 @@ import java.util.UUID;
 @Controller
 public class AcademicUnitController {
     private final IAcademicUnitService iAcademicUnitService;
+    private final Random random = new Random();
 
     @Autowired
     public AcademicUnitController(IAcademicUnitService iAcademicUnitService) {
         this.iAcademicUnitService = iAcademicUnitService;
     }
 
-    @GetMapping("/acadUnit")
+    @GetMapping("/academicUnit")
     public String showAcademicUnitDashboard(Model model) {
         List<AcademicUnit> academicUnitList = iAcademicUnitService.findAll();
         model.addAttribute("academicUnitList", academicUnitList);
         model.addAttribute("acadUnit", new AcademicUnit());
-        model.addAttribute("faculty", new AcademicUnit());
+        model.addAttribute("facultyForm", new AcademicUnit());
         model.addAttribute("department", new AcademicUnit());
         return "academicUnit";
     }
 
-
     @PostMapping("/acadUnit/createProgram")
     public String createProgram(@ModelAttribute("acadUnit") AcademicUnit academicUnit) {
-
+        int randomCode = generateRandomCode();
+        academicUnit.setId(UUID.randomUUID());
         academicUnit.setCode(String.valueOf(randomCode));
         academicUnit.setName(academicUnit.getName());
         academicUnit.setUnit(EAcademicUnit.PROGRAMME);
-
         iAcademicUnitService.saveAcademicUnit(academicUnit);
-        return "redirect:/acadUnit";
+        return "redirect:/academicUnit";
     }
 
     @PostMapping("/acadUnit/createFaculty")
-    public String createFaculty(@ModelAttribute AcademicUnit unit) {
-
+    public String createFaculty(@ModelAttribute("facultyForm") AcademicUnit unit) {
         AcademicUnit parent = iAcademicUnitService.findUnitByName(unit.getAcademicUnit().getName());
-        int randomCode = random.nextInt(max - min + 1) + min;
-
+        int randomCode = generateRandomCode();
         unit.setId(UUID.randomUUID());
         unit.setCode(String.valueOf(randomCode));
         unit.setUnit(EAcademicUnit.FACULTY);
         unit.setAcademicUnit(parent);
-
         iAcademicUnitService.saveAcademicUnit(unit);
-        return "redirect:/acadUnit";
+        return "redirect:/academicUnit";
     }
 
-    @RequestMapping(value = "/acadUnit/delete/{id}", method = RequestMethod.GET)
-    public String deleteAcademicUnit(@PathVariable AcademicUnit academicUnit) {
-        iAcademicUnitService.deleteUnit(academicUnit);
-        return "redirect:/acadUnit";
+    @PostMapping("/acadUnit/createDepartment")
+    public String saveDepUnit(@ModelAttribute("department") AcademicUnit unit){
+        AcademicUnit parent = iAcademicUnitService.findUnitByName(unit.getAcademicUnit().getName());
+        int randomCode = generateRandomCode();
+        unit.setId(UUID.randomUUID());
+        unit.setCode(String.valueOf(randomCode));
+        unit.setUnit(EAcademicUnit.DEPARTMENT);
+        unit.setAcademicUnit(parent);
+        iAcademicUnitService.saveAcademicUnit(unit);
+        return "redirect:/academicUnit";
     }
 
-    @RequestMapping(path = "/acadUnit/update/{id}", method = RequestMethod.GET)
-    public String editAcademicUnit(@ModelAttribute("acadUnit") Model model, @PathVariable(value = "id") AcademicUnit academicUnitd) {
-        model.addAttribute("acadUnit", iAcademicUnitService.findUnitById(academicUnitd));
-
-        return "redirect:/acadUnit";
+    private int generateRandomCode() {
+        int min = 10000; // Smallest 5-digit number
+        int max = 99999; // Largest 5-digit number
+        return random.nextInt(max - min + 1) + min;
     }
-
-    int min = 10000; // Smallest 5-digit number
-    int max = 99999; // Largest 5-digit number
-    Random random = new Random();
-    int randomCode = random.nextInt(max - min + 1) + min;
 }

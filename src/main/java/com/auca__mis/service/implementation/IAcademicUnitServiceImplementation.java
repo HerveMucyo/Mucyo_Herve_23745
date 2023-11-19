@@ -32,11 +32,14 @@ public class IAcademicUnitServiceImplementation implements IAcademicUnitService 
     public List<AcademicUnit> findAll() {
         return academicUnitDao.findAll();
     }
+
+
+
     @Override
     public AcademicUnit findUnitByName(String name) {
-        return this.academicUnitDao.
-                findAcademicUnitsByName(name);
+        return academicUnitDao.findAcademicUnitByName(name);
     }
+
 
     @Override
     public void deleteUnit(AcademicUnit academicUnit) {

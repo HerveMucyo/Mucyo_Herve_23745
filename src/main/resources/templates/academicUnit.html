@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body id="body-two">
-<th:block th:include="sidebar"></th:block>
+<!--<th:block th:include="${sidebar}"></th:block>-->
 <div class="main--content academic">
   <div class="header--wrapper">
     <div class="header--title">
@@ -26,7 +26,7 @@
       <div class="search--box">
         <i class="fa solid fa-search"></i>
         <input type="text" placeholder="Search" />
-        <img src="../static/images/girl.jpg" alt="" />
+        <img src="/images/girl.jpg" alt="" />
       </div>
     </div>
   </div>
@@ -35,65 +35,79 @@
       <div>
         <h3 class="main--title">Insert / Modify Data</h3>
       </div>
+<!--              PROGRAM-->
       <div style="display: flex">
-      <div class="forms">
-        <h2 class="main--title">Add Program</h2>
-        <form th:action="@{/acadUnit/createProgram}" th:object="${acadUnit}" method="post" class="form-one">
-          <div class="one">
-            <label for="programName">Program Name</label>
-            <input type="text" id="programName" th:field="*{name}" required/>
+        <div class="forms">
+          <h2 class="main--title">Add Program</h2>
+          <form th:action="@{/acadUnit/createProgram}" method="post"  th:object="${acadUnit}" class="form-one">
+            <div class="one">
+              <label for="program1">Program Name</label><input type="text" name="program1" id="program1" th:field="*{name}" required/>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+<!--                            END-->
+
+<!--                        FACULTY-->
+        <div class="forms">
+          <h2 class="main--title">Add Faculty</h2>
+          <form th:action="@{/acadUnit/createFaculty}"  method="post" th:object="${facultyForm}" class="form-one">
+            <small class="msg" style="color: darkred;"></small>
+            <small class="msg" style="color: green;"></small>
+            <div class="last">
+              <label for="programme1">Choose Program</label>
+              <select name="programme" id="programme1" th:field="*{academicUnit.name}">
+                <option value="null">Select Programme</option>
+                <th:block th:each="p : ${academicUnitList}">
+                  <option th:if="${p.unit.name == 'PROGRAMME'}" th:value="${p.name}">
+                    [[${p.name}]]
+                  </option>
+                </th:block>
+              </select>
+              <label for="programme1">Faculty Name:</label>
+              <label>
+                <input type="text" name="fac"  th:field="*{name}" required/>
+              </label>
+            </div>
             <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
-      <div class="forms">
-      <h2 class="main--title">Add Faculty</h2>
-      <form th:action="@{/acadUnit/createFaculty}" method="post" th:object="${faculty}" class="form-one">
-        <small class="msg" style="color: darkred;"></small>
-        <small class="msg" style="color: green;"></small>
-        <div class="last">
-          <label for="programme1">Choose Program</label>
-          <select name="programme" id="programme1">
-            <option>select program</option>
-
-          <option value=""></option>
-
-          </select>
-          <label for="programme1">Faculty Name:</label>
-          <input type="text" name="fac"  required/>
+          </form>
         </div>
-        <button type="submit">Submit</button>
-      </form>
-      </div>
-      <div class="forms">
-      <h2 class="main--title">Add Faculty</h2>
-      <form action="" method="post" class="form-one">
-        <div class="last">
-          <label for="programme2">Choose Program</label>
-          <select name="programme" id="programme2" th:field="*{acadUnit.name}">
-            <option>Select Program</option>
-            <option value=""></option>
+<!--                END-->
 
-          </select>
-          <label for="department1">Choose Faculty</label><select name="faculty" id="department1">
-            <option>Select Faculty</option>
 
-               <option value=""></option>
-
-          </select>
-          <div class="one">
-            <label>Department Name</label>
-            <input type="text" name="depart" id="faculty" />
-          </div>
-          <button type="submit">Submit</button>
-
-        </div>
-      </form>
+<!--                  DEPARTMENT-->
+        <div class="forms">
+          <h2 class="main--title">Add Department</h2>
+          <form th:action="@{/acadUnit/createDepartment}" method="post" th:object="${department}" class="form-one">
+            <div class="last">
+              <label for="programme1">Choose Program</label>
+              <select name="programme"  th:field="*{academicUnit.name}">
+                <option value="null">Select Programme</option>
+                <th:block th:each="p : ${academicUnitList}">
+                  <option th:if="${p.unit.name == 'PROGRAMME'}" th:value="${p.name}">
+                    [[${p.name}]]
+                  </option>
+                </th:block>
+              </select>
+              <label for="programme2">Choose Faculty</label>
+              <select name="programme" id="programme2" th:field="*{academicUnit.name}">
+                <option value="null">Select Faculty</option>
+                <th:block th:each="fac : ${academicUnitList}">
+                  <option th:if="${fac.unit.name() == 'FACULTY'}" th:value="${fac.name}">
+                    [[${fac.name}]]
+                  </option>
+                </th:block>
+              </select>
+              <div class="one">
+                <label>Department Name</label>
+                <input type="text" name="depart"  th:field="*{name}" id="department" />
+              </div>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-
-
   </div>
   <div class="tabular--wrapper">
     <h3 class="main--title">Academic Units data</h3>
@@ -104,18 +118,18 @@
           <th>CODE</th>
           <th>NAME</th>
           <th>CATEGORY</th>
-          <th>PARENT</th>
+          <th>UNIT</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="ac: ${academicUnitList}">
-          <td th:text="${ac.code}"></td>
-          <td th:text="${ac.name}"></td>
-          <td th:text="${ac.unit}"></td>
+        <tr th:each="unit:${academicUnitList}">
+          <td th:text="${unit.code}"></td>
+          <td th:text="${unit.name}"></td>
+          <td th:text="${unit.unit}"></td>
           <td>
-            <span th:if="${ac.academicUnit}">[[${ac.academicUnit.name}]]</span>
-            <span th:unless="${ac.academicUnit}">--Parent--</span>
+            <span th:if="${unit.academicUnit}">[[${unit.academicUnit.name}]]</span>
+            <span th:unless="${unit.academicUnit}">--Parent--</span>
           </td>
         </tr>
 
@@ -123,7 +137,7 @@
         </tbody>
         <tfoot>
         <tr>
-          <td colspan="7">Total: <span th:text="${academicUnitList.size()}"/> Academic Units</td>
+          <td colspan="7">Total: <span th:text="${academicUnitList.size()}"></span></td>
         </tr>
         </tfoot>
       </table>
