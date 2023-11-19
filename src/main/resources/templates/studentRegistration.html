@@ -1,5 +1,6 @@
 
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,73 +35,54 @@
         <div class="card--container">
             <h3 class="main--title">Insert / Modify Data</h3>
 
-            <form action="../services/addStudReg.jsp" method="post" class="form-one">
+            <form th:action="@{saveRegistration}" method="post" th:object="${regForm}" class="form-one">
 
                 <div class="last">
                     <label for="student">Student</label>
-                    <select name="regNo" id="student">
-                        <option>Select Student</option>
-                        <%
-                            List<Student> students = new ArrayList<>();
-                            StudentService service1 = new StudentServiceImpl();
-                            students = service1.studentList();
-
-                            for(Student student: students){
-                        %>
-                        <option value="<%=student.getRegNo()%>"><%=student.getRegNo() + " " + student.getFullNames()%></option>
-                        <%
-                            }
-                        %>
+                    <select name="regNo" id="student" th:field="*{student.id}">
+                        <option value="null">Select Student</option>
+                        <th:block th:each="st : ${studentList}">
+                            <option th:value="${st.id}">
+                                [[${st.regNo} ]] [[${st.fullNames}]]
+                            </option>
+                        </th:block>
                     </select>
 
                     <label for="unit">Select Academic Unit</label>
-                    <select name="unit" id="unit">
-                        <option>Select Unit</option>
-                        <%
-                            List<AcademicUnit> unitList = new ArrayList<>();
-                            AcademicUnitService service2 = new AcademicUnitImplementation();
-                            unitList = service2.unitList();
-
-                            for(AcademicUnit unit: unitList){
-                                if(unit.getUnit().name().equals("DEPARTMENT")){
-                        %>
-                        <option value="<%=unit.getName()%>"><%=unit.getName()%></option>
-                        <%
-                                }
-                            }
-                        %>
+                    <select name="unit" id="unit" th:field="*{unit.id}">
+                        <option value="null">Select Unit</option>
+                        <th:block th:each="unit : ${unitList}">
+                            <option th:if="${unit.unit.name == 'DEPARTMENT'}" th:value="${unit.id}">
+                                [[${unit.name}]]
+                            </option>
+                        </th:block>
                     </select>
                     <label for="semester">Start Date</label>
-                    <select name="semester" id="semester">
-                        <option>Select Semester</option>
-                        <%
-                            List<Semester> semesters = new ArrayList<>();
-                            SemesterService service3 = new SemesterServiceImplementation();
-                            semesters = service3.findAllSemesters();
-
-                            for(Semester semester: semesters){
-                        %>
-                        <option value="<%=semester.getName()%>"><%=semester.getName()+" "+semester.getStartDate()%></option>
-                        <%
-                            }
-                        %>
+                    <select name="semester" id="semester" th:field="*{semester.id}">
+                        <option value="null">Select Semester</option>
+                        <th:block th:each="sem : ${semList}">
+                            <option th:value="${sem.id}">
+                                [[${sem.name}]]
+                            </option>
+                        </th:block>
                     </select>
 
                     <div class="last">
                         <label>STATUS :</label>
-                        <label>
-                            <select name="status">
-                                <option>Select Status</option>
-                                <option value="PENDING">PENDING</option>
-                                <option value="ADMITTED">ADMITTED</option>
-                                <option value="REJECTED">REJECTED</option>
-                            </select>
-                        </label>
+                        <select name="status" id="status">
+                            <option value="null">Select Status</option>
+                            <option value="PENDING">PENDING</option>
+                            <option value="ADMITTED">ADMITTED</option>
+                            <option value="REJECTED">REJECTED</option>
+                        </select>
+                        <label for="regDate">Registration Date</label>
+                        <input type="date" name="regDate" id="regDate" required th:field="*{registrationDate}"/>
+
                     </div>
+
                 </div>
 
-
-                <button type="submit">Submit</button>
+                <input type="submit" id="formBtn" value="Submit" name="action" />
             </form>
         </div>
         <div class="tabular--wrapper">
@@ -116,21 +98,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <%
-                        List<StudentRegistration> regList=new ArrayList<>();
-                        StudRegService studentRegService =new StudRegServiceImplementation();
-                        regList=studentRegService.registrationList();
-
-                        for (StudentRegistration registration : regList) {
-                    %>
-                    <tr>
-                        <td><%= registration.getStudent().getRegNo() %></td>
-                        <td><%= registration.getSemester().getName() %></td>
-                        <td><%=registration.getUnit().getId().toString()%></td>
-                        <td><%= registration.getRegistrationDate()%></td>
+                    <tr th:each="reg: ${registrationList}">
+                        <td th:text="${reg.id}" style="display: none;"></td>
+                        <td th:text="${reg.student.regNo}"></td>
+                        <td th:text="${reg.student.fullNames}"></td>
+                        <td th:text="${reg.semester.name}"></td>
+                        <td th:text="${reg.registrationDate}"></td>
+                        <td th:text="${reg.status.name}"></td>
+                        <td>
+                            <div class="tdAction">
+                                <button class="updateBtn">?</button>
+                                <button class="deleteBtn">x</button>
+                            </div>
+                        </td>
                     </tr>
-                    <%}%>
-
                     </tbody>
                     <tfoot>
                     <tr>

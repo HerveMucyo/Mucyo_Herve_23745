@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IStudRegService {
-    public boolean createStudentRegistration(StudentRegistration registration);
-    public List<StudentRegistration> registrationList();
-    public boolean deleteStudentRegistration(StudentRegistration registration);
-    public StudentRegistration studRegistrationById(UUID id);
-    public List<StudentRegistration> getStudentBySemester(UUID id);
+    StudentRegistration createStudentRegistration(StudentRegistration registration);
+    List<StudentRegistration> registrationList();
+    void deleteStudentRegistration(StudentRegistration registration);
 
-    List<StudentRegistration> getStudentBySemesterAndDepartment(UUID id, UUID id1);
+    List<StudentRegistration> getStudentBySemesterId(UUID id);
+
+    List<StudentRegistration> getStudentBySemesterAndDepartment(UUID id, UUID unitId);
 
 }

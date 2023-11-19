@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>save country name</h1>
+<form th:action="@{/country/create}" method="post" th:object="${country}">
+<label>Country name</label>
+<input type="text" name="country"  th:field="*{country_name}">
+  <button type="submit">Save</button>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>COUNTRY NAME</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <tr th:each="ctry : ${countryList}">
+            <td th:text="${ctry.id}"></td>
+            <td th:text="${ctry.country_name}"></td>
+            <td>
+                <div class="cell" data-title="Action">
+                    <a  class="update-btn">Edit</a>
+                    <a  class="delete-btn">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="7">Total: <span th:text="${countryList.size()}"></span> countries</td>
+        </tr>
+        </tfoot>
+    </table>
+</form>
+</body>
+</html>

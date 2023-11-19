@@ -90,10 +90,10 @@
                 </th:block>
               </select>
               <label for="programme2">Choose Faculty</label>
-              <select name="programme" id="programme2" th:field="*{academicUnit.name}">
+              <select name="parent" id="programme2" th:field="*{academicUnit.name}">
                 <option value="null">Select Faculty</option>
                 <th:block th:each="fac : ${academicUnitList}">
-                  <option th:if="${fac.unit.name() == 'FACULTY'}" th:value="${fac.name}">
+                  <option th:if="${fac.unit.name() == 'FACULTY'}" th:value="${fac.id}">
                     [[${fac.name}]]
                   </option>
                 </th:block>
@@ -124,6 +124,7 @@
         <tbody>
 
         <tr th:each="unit:${academicUnitList}">
+
           <td th:text="${unit.code}"></td>
           <td th:text="${unit.name}"></td>
           <td th:text="${unit.unit}"></td>
