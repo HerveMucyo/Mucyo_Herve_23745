@@ -35,7 +35,7 @@
         <div class="card--container">
             <h3 class="main--title">Insert / Modify Data</h3>
 
-            <form th:action="@{saveRegistration}" method="post" th:object="${regForm}" class="form-one">
+            <form action="saveRegistration" method="post" th:object="${regForm}" class="form-one">
 
                 <div class="last">
                     <label for="student">Student</label>
@@ -115,7 +115,7 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <td colspan="7">Total: <%= regList.size() %> Semesters</td>
+                        <td colspan="7">Total: </td>
                     </tr>
                     </tfoot>
                 </table>

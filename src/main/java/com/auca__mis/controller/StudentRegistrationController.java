@@ -18,26 +18,33 @@ import java.util.UUID;
 
 @Controller
 public class StudentRegistrationController {
-    @Autowired
     IStudRegService registrationService;
-    @Autowired
+
     IStudentService studentService;
-    @Autowired
+
     IAcademicUnitService unitService;
-    @Autowired
+
     ISemesterService semesterService;
 
+    @Autowired
+    public StudentRegistrationController(IStudRegService registrationService, IStudentService studentService, IAcademicUnitService unitService, ISemesterService semesterService) {
+        this.registrationService = registrationService;
+        this.studentService = studentService;
+        this.unitService = unitService;
+        this.semesterService = semesterService;
+    }
+
     @PostMapping("/saveRegistration")
-    public String saveRegistration(@ModelAttribute StudentRegistration registration, @RequestParam String action){
+    public String saveRegistration(@ModelAttribute StudentRegistration registration, @RequestParam String action) {
         registration.setStatus(ERegistrationStatus.ADMITTED);
-        if(action.equals("Update")){
+        if (action.equals("Update")) {
             UUID id = registration.getId();
             registration.setId(id);
             registrationService.createStudentRegistration(registration);
-        }else if(action.equals("Submit")){
+        } else if (action.equals("Submit")) {
             registration.setId(UUID.randomUUID());
             registrationService.createStudentRegistration(registration);
-        }else{
+        } else {
             UUID id = registration.getId();
             registration.setId(id);
             registrationService.deleteStudentRegistration(registration);
@@ -47,7 +54,7 @@ public class StudentRegistrationController {
     }
 
     @GetMapping("/studentRegistration")
-    public String findAllRegistrations(Model model){
+    public String findAllRegistrations(Model model) {
         model.addAttribute("registrationList", registrationService.registrationList());
         model.addAttribute("regForm", new StudentRegistration());
         model.addAttribute("studentList", studentService.getAllStudents());

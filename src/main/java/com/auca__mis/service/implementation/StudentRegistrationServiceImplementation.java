@@ -12,8 +12,11 @@ import java.util.UUID;
 @Service
 public class StudentRegistrationServiceImplementation implements IStudRegService {
 
-    @Autowired
     StudentRegistrationDao registrationDao;
+    @Autowired
+    public StudentRegistrationServiceImplementation(StudentRegistrationDao registrationDao) {
+        this.registrationDao = registrationDao;
+    }
 
     @Override
     public StudentRegistration createStudentRegistration(StudentRegistration registration) {
@@ -31,6 +34,11 @@ public class StudentRegistrationServiceImplementation implements IStudRegService
     }
 
     @Override
+    public List<StudentRegistration> getStudentBySemesterAndDepartment(UUID id, UUID unitId) {
+        return null;
+    }
+
+    @Override
     public List<StudentRegistration> getStudentBySemesterId(UUID id) {
         if(id != null) {
             return registrationDao.findStudentRegistrationBySemesterId(id);
@@ -39,12 +47,12 @@ public class StudentRegistrationServiceImplementation implements IStudRegService
         }
     }
 
-    @Override
-    public List<StudentRegistration> getStudentBySemesterAndDepartment(UUID id, UUID unitId) {
-        if(id != null && unitId != null){
-            return registrationDao.findStudentRegistrationBySemesterIdAndUnitId(id, unitId);
-        }else{
-            return registrationDao.findAll();
-        }
-    }
+//    @Override
+//    public List<StudentRegistration> getStudentBySemesterAndDepartment(UUID id, UUID unitId) {
+//        if(id != null && unitId != null){
+//            return registrationDao.findStudentRegistrationBySemesterIdAndUnitId(id, unitId);
+//        }else{
+//            return registrationDao.findAll();
+//        }
+//    }
 }

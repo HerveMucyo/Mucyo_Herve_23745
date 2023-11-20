@@ -10,8 +10,9 @@ public interface IStudRegService {
     List<StudentRegistration> registrationList();
     void deleteStudentRegistration(StudentRegistration registration);
 
-    List<StudentRegistration> getStudentBySemesterId(UUID id);
+//    List<StudentRegistration> getStudentBySemesterId(UUID id);
 
     List<StudentRegistration> getStudentBySemesterAndDepartment(UUID id, UUID unitId);
 
+    List<StudentRegistration> getStudentBySemesterId(UUID id);
 }

@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
-@Repository
+//@Repository
 public interface StudentRegistrationDao extends JpaRepository<StudentRegistration, UUID> {
     List<StudentRegistration> findStudentRegistrationBySemesterId(UUID semester_id);
-    List<StudentRegistration> findStudentRegistrationBySemesterIdAndUnitId(UUID semId, UUID unitId);
-
+//    List<StudentRegistration> findStudentRegistrationBySemesterIdAndUnitId(UUID semId, UUID unitId);
 }

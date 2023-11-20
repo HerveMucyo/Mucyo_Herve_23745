@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+            integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body id="body-two">
+<th:block th:include="sidebar"></th:block>
+<div class="main--content">
+    <div class="header--wrapper">
+        <div class="header--title">
+            <span>Payment </span>
+            <h2>Dashboard</h2>
+        </div>
+
+        <div class="user--info">
+            <form th:action="@{/payment}" method="post" th:object="${payment}" id="form" class="form-one">
+                <div class="search--box">
+                    <i class="fa solid fa-search"></i>
+                    <input type="text" placeholder="Search" th:field="*{stud_Id}"/>
+                    <img src="/images/girl.jpg" alt=""/>
+                    <button type="submit">search</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <div class="main-display">
+        <div class="card--container">
+            <h3 class="main--title">Insert / Modify Data</h3>
+            <form th:action="@{//payment/create}" method="post" th:object="${payment}" id="form0">
+                <div class="one">
+                    <label>Date of payment</label>
+                    <input type="date" id="studCode" th:field="*{date}" required/>
+
+                    <label>Amount</label>
+                    <input type="text" id="studNames" th:field="*{amount}" required/>
+                </div>
+                <button type="submit">Save</button>
+            </form>
+        </div>
+
+        <div class="tabular--wrapper">
+            <div class="table--container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>NAMES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <tr>
+                        <td>TEST</td>
+                    </tr>
+
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">Total: 1</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>
