@@ -50,7 +50,7 @@ public class StudentRegistrationController {
             registrationService.deleteStudentRegistration(registration);
         }
 
-        return "redirect:studentRegistration";
+        return "redirect:/studentRegistration";
     }
 
     @GetMapping("/studentRegistration")

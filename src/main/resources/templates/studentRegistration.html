@@ -12,7 +12,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="../static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body id="body-two">
 <th:block th:include="sidebar"></th:block>
@@ -35,8 +35,8 @@
         <div class="card--container">
             <h3 class="main--title">Insert / Modify Data</h3>
 
-            <form action="saveRegistration" method="post" th:object="${regForm}" class="form-one">
-
+            <form action="saveRegistration" id="form" method="post" th:object="${regForm}" class="form-one">
+                <input type="hidden" id="id" name="id" th:field="*{id}" />
                 <div class="last">
                     <label for="student">Student</label>
                     <select name="regNo" id="student" th:field="*{student.id}">
@@ -69,12 +69,14 @@
 
                     <div class="last">
                         <label>STATUS :</label>
-                        <select name="status" id="status">
+                        <select name="status" id="status" th:field="*{status}">
                             <option value="null">Select Status</option>
-                            <option value="PENDING">PENDING</option>
+                            <option
+                                    value="PENDING">PENDING</option>
                             <option value="ADMITTED">ADMITTED</option>
                             <option value="REJECTED">REJECTED</option>
                         </select>
+
                         <label for="regDate">Registration Date</label>
                         <input type="date" name="regDate" id="regDate" required th:field="*{registrationDate}"/>
 
@@ -91,10 +93,13 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Student Code</th>
-                        <th>Semester </th>
-                        <th>Academic unit</th>
-                        <th>Date of Registration</th>
+                        <th style="display: none;">#</th>
+                        <th>RegNo</th>
+                        <th>Student Names</th>
+                        <th>Semester</th>
+                        <th>Registration Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -127,3 +132,52 @@
 </div>
 </body>
 </html>
+
+<script defer>
+    const form = document.getElementById("form");
+    const updateButtons = document.querySelectorAll('.updateBtn');
+    const deleteButtons = document.querySelectorAll('.deleteBtn');
+    const srIdInput = document.getElementById('id');
+    const stRegNoInput = document.getElementById('student');
+    const unitInput = document.getElementById('unit');
+    const semesterInput = document.getElementById('semester');
+    const regDateInput = document.getElementById('regDate');
+    const formBtn = document.getElementById('formBtn');
+
+    updateButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const row = button.closest('tr');
+            const cells = row.getElementsByTagName('td');
+
+            srIdInput.value = cells[0].textContent;
+            stRegNoInput.value = cells[1].textContent;
+            unitInput.value = cells[2].textContent;
+            semesterInput.value = cells[3].textContent;
+            regDateInput.value = cells[4].textContent;
+            formBtn.value = 'Update';
+            formBtn.style.backgroundColor = '#12bdce';
+        });
+    })
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const row = button.closest("tr");
+            const cells = row.getElementsByTagName("td");
+
+            srIdInput.value = cells[0].textContent;
+            stRegNoInput.value = cells[1].textContent;
+            unitInput.value = cells[2].textContent;
+            semesterInput.value = cells[3].textContent;
+            regDateInput.value = cells[4].textContent;
+
+            formBtn.value = 'Delete';
+            formBtn.style.backgroundColor = '#950785';
+        });
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.action = "saveRegistration?action=" + formBtn.value;
+        form.submit();
+    });
+</script>
