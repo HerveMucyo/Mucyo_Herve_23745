@@ -4,6 +4,7 @@ import com.auca__mis.enums.EAcademicUnit;
 import com.auca__mis.model.AcademicUnit;
 import com.auca__mis.service.IAcademicUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-@Controller
+//@Controller
+@RestController
+@RequestMapping(value = "/academicUnit/",
+        consumes ={MediaType.APPLICATION_JSON_VALUE},
+        produces ={MediaType.APPLICATION_JSON_VALUE}
+)
 public class AcademicUnitController {
     private final IAcademicUnitService iAcademicUnitService;
     private final Random random = new Random();
